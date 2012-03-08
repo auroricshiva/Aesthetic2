@@ -3,26 +3,20 @@ package com.colintony.aes2;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Paint.Align;
-import android.graphics.PointF;
-import android.graphics.Typeface;
 import android.os.Handler;
-import android.os.Message;
 import android.util.AttributeSet;
-import android.util.FloatMath;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-import android.widget.TextView;
 
 
 
 class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
 	
 	Canvas c;
+	Boolean set = false;
 	
 	private int state = 0;
 
@@ -93,7 +87,7 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
         private void doDraw(Canvas canvas) {
         	canvas.save();
         	
-        	canvas.scale(oscale,oscale,mx,my);
+        	//canvas.scale(oscale,oscale,mx,my);
 	        canvas.drawBitmap(BackgroundImage, mx, my, null);
 	        	
 			canvas.restore();
@@ -135,7 +129,7 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
 
         @Override
         public void run() {
-            while (mRun) {
+            while (mRun && set) {
                	c = null;
                 try {
                     c = SurfaceHolder.lockCanvas(null);
@@ -308,7 +302,7 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
    
     protected void setBits(Bitmap bits[]){
         BackgroundImage = bits[0];
-        thread.setRunning(true);
+        set = true;
     }
 
 

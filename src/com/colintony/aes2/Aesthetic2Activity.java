@@ -14,17 +14,11 @@ import android.view.WindowManager;
 import android.content.res.Configuration;
 
 /**
- * This is a simple Aesthetic2 activity that houses a single Athetic2View. It
- * demonstrates...
- * <ul>
- * <li>animating by calling invalidate() from draw()
- * <li>loading and drawing resources
- * <li>handling onPause() in an animation
- * </ul>
+ * This is a simple Aesthetic2 activity that houses a single Athetic2View.
  */
 public class Aesthetic2Activity extends Activity {
 
-	private Bitmap[] bits = new Bitmap[52];
+	private Bitmap[] bits = new Bitmap[10];
 	
     /** A handle to the View in which the game is running. */
     private Aesthetic2View mAesthetic2View;
@@ -54,7 +48,7 @@ public class Aesthetic2Activity extends Activity {
         	mAesthetic2View.setBits(bits);
         }
         catch(Exception E){
-        	bits = new Bitmap[52];
+        	bits = new Bitmap[10];
 	        bits[0] = BitmapFactory.decodeResource(getResources(), R.drawable.back2c);
 	        mAesthetic2View.setBits(bits);
         }
@@ -80,7 +74,7 @@ public class Aesthetic2Activity extends Activity {
         System.gc();
 
         mAesthetic2View.getThread().setRunning(false); // pause game when Activity pauses
-        unbindDrawables(findViewById(R.id.aes2));
+        //unbindDrawables(findViewById(R.id.aes2));
         System.gc();
     }
     
