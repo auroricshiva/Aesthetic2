@@ -46,6 +46,7 @@ public class Aesthetic2Activity extends Activity {
 
        	bits = new Bitmap[10];
 	    bits[0] = BitmapFactory.decodeResource(getResources(), R.drawable.clouds4);
+	    bits[1] = BitmapFactory.decodeResource(getResources(), R.drawable.grassblock);
 	    mAesthetic2View.setBits(bits);
 
         System.gc();

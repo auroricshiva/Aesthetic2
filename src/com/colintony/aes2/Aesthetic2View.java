@@ -31,10 +31,11 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
 	
     private Paint paint = new Paint();
     
+    int map[][] = new int[50][5];
     
     	/** images */
     private Bitmap BackgroundImage;
- 
+    private Bitmap[] land = new Bitmap[10];
         
     class Aesthetic2Thread extends Thread {
         
@@ -60,7 +61,11 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
         public Aesthetic2Thread(SurfaceHolder surfaceHolder, Context context, Handler handler) {
             // get handles to some important objects
             SurfaceHolder = surfaceHolder;
-
+            map[0][4] = 1;
+            map[0][3] = 1;
+            map[1][4] = 1;
+            map[1][3] = 1;
+            map[2][4] = 1;
             state = 0;
         }
         
@@ -86,25 +91,28 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
          */
         private void doDraw(Canvas canvas) {
         	canvas.save();
+        	canvas.scale(oscale,oscale,mx,my);
         	
         	canvas.scale(0.5f,0.5f,mx,my);
 	        canvas.drawBitmap(BackgroundImage, mx, my, null);
-	        	
+	        canvas.restore();
+	        
+	        drawRow(map[0], canvas);
 			canvas.restore();
         }
-          
           
           
 
         
         
-        
-        
-        
-        
-        
-        
-        /***
+        private void drawRow(int[] map, Canvas canvas) {
+			for(int i = 0; i < 5; i++){
+				if(map[i] != 0) canvas.drawBitmap(land[0], mx, my+50*i, null);
+			}
+		}
+
+
+		/***
          * Updates the game each time it is called
          */
         private void update() {
@@ -302,6 +310,7 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
    
     protected void setBits(Bitmap bits[]){
         BackgroundImage = bits[0];
+        land[0] = bits[1];
         set = true;
     }
 
