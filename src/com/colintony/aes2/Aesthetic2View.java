@@ -87,7 +87,7 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
         private void doDraw(Canvas canvas) {
         	canvas.save();
         	
-        	//canvas.scale(oscale,oscale,mx,my);
+        	canvas.scale(0.5f,0.5f,mx,my);
 	        canvas.drawBitmap(BackgroundImage, mx, my, null);
 	        	
 			canvas.restore();
