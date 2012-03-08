@@ -44,14 +44,9 @@ public class Aesthetic2Activity extends Activity {
         
 
 
-        try{   
-        	mAesthetic2View.setBits(bits);
-        }
-        catch(Exception E){
-        	bits = new Bitmap[10];
-	        bits[0] = BitmapFactory.decodeResource(getResources(), R.drawable.back2c);
-	        mAesthetic2View.setBits(bits);
-        }
+       	bits = new Bitmap[10];
+	    bits[0] = BitmapFactory.decodeResource(getResources(), R.drawable.back2c);
+	    mAesthetic2View.setBits(bits);
 
         System.gc();
     }

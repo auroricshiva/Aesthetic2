@@ -223,7 +223,7 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
      */
     @Override
     public void onWindowFocusChanged(boolean hasWindowFocus) {
-        if (!hasWindowFocus) thread.setRunning(false);
+        //if (!hasWindowFocus) thread.setRunning(false);
     }
 
 
