@@ -36,6 +36,7 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
     
     	/** images */
     private Bitmap BackgroundImage;
+    private Bitmap character;
     private Bitmap[] land = new Bitmap[10];
         
     class Aesthetic2Thread extends Thread {
@@ -88,14 +89,16 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
          */
         private void doDraw(Canvas canvas) {
         	canvas.save();
-        	canvas.scale(oscale,oscale,mx,my);
+        	canvas.scale(oscale,oscale,0,0);
         	
         	canvas.save();
-        	canvas.scale(0.5f,0.5f,mx,my);
+        	canvas.scale(0.5f,0.5f,0,0);
 	        canvas.drawBitmap(BackgroundImage, 0, 0, null);
 	        canvas.restore();
 	        
 	        drawLand(map, canvas);
+	        canvas.scale(0.75f,0.75f,0,0);
+	        canvas.drawBitmap(character, 0, 350, null);
 			canvas.restore();
         }
           
@@ -104,10 +107,12 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
         
         
         private void drawLand(int[][] map, Canvas canvas) {
-        	for(int j = 0; j < 21; j++){
-				for(int i = 0; i < 5; i++){
-					if((map[j] != null) && map[j][i] != 0) canvas.drawBitmap(land[0], -mx+151*j, my+60*i, null);
+        	for(int j = 0; j < 100; j++){
+        		canvas.drawBitmap(land[2], -mx+151*j, my+60*4, null);
+				for(int i = 4; i >= 0; i--){
+					if((map[j] != null) && map[j][i] != 0) canvas.drawBitmap(land[map[j][i]-1], -mx+151*j, my+60*i-60, null);
 				}
+				
         	}
 		}
 
@@ -125,7 +130,7 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
             if(state == 0){
 	            if(elapsed > 10){
 	            	mLastTime = now;
-	            	mx++;
+	            	if(mx < 151*99) mx+=4;
 	            }
             }
             
@@ -311,6 +316,13 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
     protected void setBits(Bitmap bits[]){
         BackgroundImage = bits[0];
         land[0] = bits[1];
+        land[1] = bits[2];
+        land[2] = bits[3];
+        land[3] = bits[4];
+        land[4] = bits[5];
+        land[5] = bits[6];
+        land[6] = bits[7];
+        character = bits[7];
         set = true;
     }
 
