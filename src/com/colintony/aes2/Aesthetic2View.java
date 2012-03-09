@@ -28,7 +28,7 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
 	private float mx, mx2;
 	private float my, my2;
     private float jHeight = 0;
-    private float endx;
+    private float endx, endy;
 
 	private float oscale = 0;
 	
@@ -109,9 +109,7 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
 	            csprite.draw(canvas, 0, 240+rowy-Math.round(jHeight));
 	        else
 	        {
-	            if(endx < 533 - csprite.getWidth() / 2)
-	                endx += 4;
-	            csprite.draw(canvas, Math.round(endx), 240+rowy);
+	            csprite.draw(canvas, Math.round(endx), Math.round(endy));
 	        }
 			canvas.restore();
 			
@@ -161,7 +159,10 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
 	            	if(mx < 151*(map.length-9)*0.6)
 	            	    mx+=4;
 	            	else if(!levelEnd[curLevel])
+	            	{
 	            	    levelEnd[curLevel] = true;
+	            	    endy = 240+rowy;
+	            	}
 	            }
 	            
                 if(rowy < row*96)
@@ -177,7 +178,7 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
                         rowy = row*96;
                 }
                         
-	            
+	           
 	            if(jump == 1)
 	            {
 	                if(jUpDown == 1)
@@ -199,6 +200,14 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
 	                        jState = 1;
 	                    }
 	                }
+	            }
+	            
+	            if(levelEnd[curLevel])
+	            {
+	                if(endx < 533 - csprite.getWidth() / 2)
+	                    endx += 6;
+	                if(endy != 330)
+	                    endy += (330 - endy)/20;
 	            }
             }
             
@@ -391,11 +400,6 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
         gems[1] = bits[19];
         set = true;
     }
-
-
-
-
-    boolean down = false;
     
 	@Override
 	public boolean onTouchEvent(MotionEvent event)
@@ -417,39 +421,34 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
 		if (eventAction == MotionEvent.ACTION_DOWN) {
 			point = event.getPointerId(0);
 			pickx = (int)event.getX(point);
-			
-			if(pickx > mCanvasWidth - 70) down = true;
-			else down = false;
+            picky = (int)event.getY(point);
+                
+            if(pickx > mCanvasWidth - 70 && !levelEnd[curLevel])
+            {
+                if(picky < mCanvasHeight / 3)
+                {
+                    if(row > 0)
+                        row--;
+                }
+                else if(picky < mCanvasHeight * 2 / 3)
+                {
+                    if(jump != 1)
+                    {
+                        jump = 1;
+                        jUpDown = 1;
+                    }
+                }
+                else if(row < 2)
+                    row++;
+            }
 		}
   	  	
   	  	if (actionCode == MotionEvent.ACTION_POINTER_UP) {
   
   	  	}
   	  	
-		if (eventAction == MotionEvent.ACTION_UP)
-		{
-			point = event.getPointerId(0);
-			pickx = (int)event.getX(point);
-			picky = (int)event.getY(point);
-				
-			if(pickx > mCanvasWidth - 70 && down)
-			{
-				if(picky < mCanvasHeight / 3)
-				{
-					if(row > 0)
-					    row--;
-				}
-				else if(picky < mCanvasHeight * 2 / 3)
-				{
-				    if(jump != 1)
-				    {
-    					jump = 1;
-    					jUpDown = 1;
-				    }
-				}
-				else if(row < 2)
-				    row++;
-			}
+		if (eventAction == MotionEvent.ACTION_UP) {
+			
 		}
 			
 		if (eventAction == MotionEvent.ACTION_MOVE) {

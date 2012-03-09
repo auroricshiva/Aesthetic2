@@ -1,5 +1,7 @@
 package com.colintony.aes2;
 
+import com.colintony.aes2.Aesthetic2View.Aesthetic2Thread;
+
 import android.app.Activity;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
@@ -120,6 +122,12 @@ public class Aesthetic2Activity extends Activity {
         Log.w(this.getClass().getName(), "SIS called");
     }
     
+    @Override
+    public void onBackPressed()
+    {
+        finish();
+        return;
+    }
     
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
