@@ -112,9 +112,9 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
 			canvas.restore();
 			
 			canvas.scale(0.25f,0.25f,0,0);
-			canvas.drawBitmap(arrows[0],4*(mCanvasWidth)-arrows[0].getWidth()-30, 0, null);
-			canvas.drawBitmap(arrows[1],4*(mCanvasWidth)-arrows[0].getWidth()-30, 4*mCanvasHeight-arrows[1].getHeight(), null);
-			canvas.drawBitmap(arrows[2],4*(mCanvasWidth)-arrows[0].getWidth()-30, 4*mCanvasHeight/2-arrows[2].getHeight()/2, null);
+			canvas.drawBitmap(arrows[0],4*(mCanvasWidth)-arrows[0].getWidth()-40, 300, null);
+			canvas.drawBitmap(arrows[1],4*(mCanvasWidth)-arrows[0].getWidth()-40, 4*mCanvasHeight-arrows[1].getHeight() - 300, null);
+			canvas.drawBitmap(arrows[2],4*(mCanvasWidth)-arrows[0].getWidth()-40, 4*mCanvasHeight/2-arrows[2].getHeight()/2, null);
         }
           
           
@@ -340,13 +340,14 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
         land[3] = bits[4];
         land[4] = bits[5];
         land[5] = bits[6];
+        land[6] = bits[11];
         character = bits[7];
         csprite = new Sprite(character, 8, 0, 0);
         arrows[0] = bits[8];
         arrows[1] = bits[9];
         arrows[2] = bits[10];
-        gems[0] = bits[11];
-        gems[1] = bits[12];
+        gems[0] = bits[18];
+        gems[1] = bits[19];
         set = true;
     }
 
@@ -359,12 +360,14 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
     boolean down = false;
     
 	@Override
-	public boolean onTouchEvent(MotionEvent event) {
+	public boolean onTouchEvent(MotionEvent event)
+	{
 		
-	  if(state == 0){
+	  if(state == 0)
+	  {
 		int point;
-		int eventaction = event.getAction();
-		int actionCode = eventaction & MotionEvent.ACTION_MASK;
+		int eventAction = event.getAction();
+		int actionCode = eventAction & MotionEvent.ACTION_MASK;
 		
   	  	int pickx;
   	  	int picky;
@@ -373,11 +376,11 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
 
   	  	}
   	    	  	
-		if (eventaction == MotionEvent.ACTION_DOWN) {
+		if (eventAction == MotionEvent.ACTION_DOWN) {
 			point = event.getPointerId(0);
 			pickx = (int)event.getX(point);
 			
-			if(pickx > mCanvasWidth*3/4) down = true;
+			if(pickx > mCanvasWidth - 70) down = true;
 			else down = false;
 		}
   	  	
@@ -385,12 +388,13 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
   
   	  	}
   	  	
-		if (eventaction == MotionEvent.ACTION_UP) {
-			 point = event.getPointerId(0);
-			 pickx = (int)event.getX(point);
-			 picky = (int)event.getY(point);
+		if (eventAction == MotionEvent.ACTION_UP)
+		{
+			point = event.getPointerId(0);
+			pickx = (int)event.getX(point);
+			picky = (int)event.getY(point);
 				
-			 if(pickx > mCanvasWidth*3/4 && down){
+			if(pickx > mCanvasWidth - 70 && down){
 				if(picky < mCanvasHeight / 3) {
 					if(row > 0) row--;
 				}
@@ -403,7 +407,7 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
 			 }
 		}
 			
-		if (eventaction == MotionEvent.ACTION_MOVE) {
+		if (eventAction == MotionEvent.ACTION_MOVE) {
 	
 		}
 
