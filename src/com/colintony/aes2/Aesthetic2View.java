@@ -31,7 +31,8 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
 	
     private Paint paint = new Paint();
     
-    int map[][] = new int[50][5];
+    int map[][];
+    Levels level = new Levels();
     
     	/** images */
     private Bitmap BackgroundImage;
@@ -61,11 +62,7 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
         public Aesthetic2Thread(SurfaceHolder surfaceHolder, Context context, Handler handler) {
             // get handles to some important objects
             SurfaceHolder = surfaceHolder;
-            map[0][4] = 1;
-            map[0][3] = 1;
-            map[1][4] = 1;
-            map[1][3] = 1;
-            map[2][4] = 1;
+            map = level.setLevel(0);
             state = 0;
         }
         
@@ -97,7 +94,7 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
 	        canvas.drawBitmap(BackgroundImage, mx, my, null);
 	        canvas.restore();
 	        
-	        drawRow(map[0], canvas);
+	        drawLand(map, canvas);
 			canvas.restore();
         }
           
@@ -105,10 +102,12 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
 
         
         
-        private void drawRow(int[] map, Canvas canvas) {
-			for(int i = 0; i < 5; i++){
-				if(map[i] != 0) canvas.drawBitmap(land[0], mx, my+50*i, null);
-			}
+        private void drawLand(int[][] map, Canvas canvas) {
+        	for(int j = 0; j < 5; j++){
+				for(int i = 0; i < 5; i++){
+					if(map[0][i] != 0) canvas.drawBitmap(land[0], mx, my+60*i, null);
+				}
+        	}
 		}
 
 
