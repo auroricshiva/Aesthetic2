@@ -26,30 +26,45 @@ public final class R {
         public static final int heart1=0x7f02000c;
         public static final int heart2=0x7f02000d;
         public static final int ic_launcher=0x7f02000e;
-        public static final int montana2=0x7f02000f;
-        public static final int plainblock=0x7f020010;
-        public static final int queue=0x7f020011;
-        public static final int rampeast=0x7f020012;
-        public static final int rampwest=0x7f020013;
-        public static final int rock=0x7f020014;
-        public static final int speechbubble=0x7f020015;
-        public static final int stack=0x7f020016;
-        public static final int stoneblock=0x7f020017;
-        public static final int stoneblocktall=0x7f020018;
-        public static final int topbar=0x7f020019;
-        public static final int treeshort=0x7f02001a;
-        public static final int treetall=0x7f02001b;
-        public static final int treeugly=0x7f02001c;
-        public static final int wallblock=0x7f02001d;
-        public static final int wallblocktall=0x7f02001e;
-        public static final int waterblock=0x7f02001f;
-        public static final int woodblock=0x7f020020;
+        public static final int menubg=0x7f02000f;
+        public static final int montana2=0x7f020010;
+        public static final int plainblock=0x7f020011;
+        public static final int queue=0x7f020012;
+        public static final int rampeast=0x7f020013;
+        public static final int rampwest=0x7f020014;
+        public static final int rock=0x7f020015;
+        public static final int speechbubble=0x7f020016;
+        public static final int stack=0x7f020017;
+        public static final int start=0x7f020018;
+        public static final int start_highlight=0x7f020019;
+        public static final int start_press=0x7f02001a;
+        public static final int startgame_button=0x7f02001b;
+        public static final int stoneblock=0x7f02001c;
+        public static final int stoneblocktall=0x7f02001d;
+        public static final int topbar=0x7f02001e;
+        public static final int treeshort=0x7f02001f;
+        public static final int treetall=0x7f020020;
+        public static final int treeugly=0x7f020021;
+        public static final int tutorial=0x7f020022;
+        public static final int tutorial_button=0x7f020023;
+        public static final int tutorial_highlight=0x7f020024;
+        public static final int tutorial_press=0x7f020025;
+        public static final int wallblock=0x7f020026;
+        public static final int wallblocktall=0x7f020027;
+        public static final int waterblock=0x7f020028;
+        public static final int woodblock=0x7f020029;
     }
     public static final class id {
+        public static final int GameMenu=0x7f050001;
+        public static final int GameMenuTable=0x7f050002;
+        public static final int StartGame=0x7f050003;
+        public static final int Tutorial=0x7f050005;
         public static final int aes2=0x7f050000;
+        public static final int spacer0=0x7f050004;
     }
     public static final class layout {
-        public static final int main=0x7f030000;
+        public static final int aes2activity=0x7f030000;
+        public static final int main=0x7f030001;
     }
     public static final class string {
         public static final int app_name=0x7f040001;

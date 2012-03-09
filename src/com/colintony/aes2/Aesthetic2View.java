@@ -108,7 +108,7 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
 	        
 	        canvas.scale(0.75f,0.75f,0,0);
 	        if(!levelEnd[curLevel])
-	            csprite.draw(canvas, 0, 240+rowy-Math.round(jHeight));
+	            csprite.draw(canvas, 200, 240+rowy-Math.round(jHeight));
 	        else
 	        {
 	            csprite.draw(canvas, Math.round(endx), Math.round(endy));
