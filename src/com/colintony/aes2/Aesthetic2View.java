@@ -19,9 +19,12 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
 	Boolean set = false;
 	
 	private int state = 0;
+	private int jState = 1;
+	private int jUpDown;
 
 	private float mx, mx2;
 	private float my, my2;
+    private float jHeight = 0;
 
 	private float oscale = 0;
 	
@@ -77,18 +80,6 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
         public Aesthetic2Thread(SurfaceHolder surfaceHolder, Handler handler) {
         	SurfaceHolder = surfaceHolder;
         }
-        
-        
-        
-        
- 
-
-
-
-
-
-
-
 
 		/**
          * Draws
@@ -108,7 +99,29 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
 	        canvas.restore();
 	        
 	        canvas.scale(0.75f,0.75f,0,0);
-	        csprite.draw(canvas, 0, 240+row*90);
+	        if(jump == 1)
+	        {
+	            if(jUpDown == 1)
+	            {
+	                jHeight += 60/(Math.pow(jState++,1.3));
+	                if(jHeight > 120)
+	                {
+	                    jHeight = 120;
+	                    jUpDown = 0;
+	                }
+	            }
+	            else
+	            {
+	                jHeight -= 60/(Math.pow(jState--,1.3));
+	                if(jHeight < 10)
+	                {
+	                    jHeight = 0;
+	                    jump = 0;
+	                    jState = 1;
+	                }
+	            }
+	        }
+	        csprite.draw(canvas, 0, 240+row*90-Math.round(jHeight));
 			canvas.restore();
 			
 			canvas.scale(0.25f,0.25f,0,0);
@@ -400,6 +413,7 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
 				}
 				else if(picky < mCanvasHeight * 2 / 3) {
 					jump = 1;
+					jUpDown = 1;
 				}
 				else{
 					if(row < 2) row++;
