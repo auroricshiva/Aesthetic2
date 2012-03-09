@@ -46,7 +46,7 @@ public class Aesthetic2Activity extends Activity {
         
 
 
-       	bits = new Bitmap[20];
+       	bits = new Bitmap[30];
 	    bits[0] = BitmapFactory.decodeResource(getResources(), R.drawable.clouds4);
 	    bits[1] = BitmapFactory.decodeResource(getResources(), R.drawable.grassblock);
 	    bits[2] = BitmapFactory.decodeResource(getResources(), R.drawable.stoneblock);
@@ -61,6 +61,11 @@ public class Aesthetic2Activity extends Activity {
 	    bits[11] = BitmapFactory.decodeResource(getResources(), R.drawable.wallblocktall);
 	    bits[18] = BitmapFactory.decodeResource(getResources(), R.drawable.gemorange);
 	    bits[19] = BitmapFactory.decodeResource(getResources(), R.drawable.gemblue);
+	    bits[20] = BitmapFactory.decodeResource(getResources(), R.drawable.queue);
+	    bits[21] = BitmapFactory.decodeResource(getResources(), R.drawable.stack);
+	    bits[22] = BitmapFactory.decodeResource(getResources(), R.drawable.topbar);
+	    bits[23] = BitmapFactory.decodeResource(getResources(), R.drawable.heart1);
+	    bits[24] = BitmapFactory.decodeResource(getResources(), R.drawable.heart2);
 	    mAesthetic2View.setBits(bits);
 
         System.gc();
