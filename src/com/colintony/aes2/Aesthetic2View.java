@@ -33,11 +33,16 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
     
     int map[][];
     Levels level = new Levels();
+    int row = 0;
+    int jump = 0;
     
     	/** images */
     private Bitmap BackgroundImage;
     private Bitmap character;
     private Bitmap[] land = new Bitmap[10];
+    private Bitmap[] arrows = new Bitmap[3];
+    
+    Sprite csprite;
         
     class Aesthetic2Thread extends Thread {
         
@@ -96,10 +101,19 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
 	        canvas.drawBitmap(BackgroundImage, 0, 0, null);
 	        canvas.restore();
 	        
+	        canvas.save();
+	        canvas.scale(0.6f,0.6f,0,mCanvasHeight);
 	        drawLand(map, canvas);
+	        canvas.restore();
+	        
 	        canvas.scale(0.75f,0.75f,0,0);
-	        canvas.drawBitmap(character, 0, 350, null);
+	        csprite.draw(canvas, 0, 240+row*90);
 			canvas.restore();
+			
+			canvas.scale(0.25f,0.25f,0,0);
+			canvas.drawBitmap(arrows[0],4*(mCanvasWidth)-arrows[0].getWidth()-30, 0, null);
+			canvas.drawBitmap(arrows[1],4*(mCanvasWidth)-arrows[0].getWidth()-30, 4*mCanvasHeight-arrows[1].getHeight(), null);
+			canvas.drawBitmap(arrows[2],4*(mCanvasWidth)-arrows[0].getWidth()-30, 4*mCanvasHeight/2-arrows[2].getHeight()/2, null);
         }
           
           
@@ -108,13 +122,16 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
         
         private void drawLand(int[][] map, Canvas canvas) {
         	for(int j = 0; j < 100; j++){
-        		canvas.drawBitmap(land[2], -mx+151*j, my+60*4, null);
-				for(int i = 4; i >= 0; i--){
-					if((map[j] != null) && map[j][i] != 0) canvas.drawBitmap(land[map[j][i]-1], -mx+151*j, my+60*i-60, null);
+        		canvas.drawBitmap(land[2], -mx/0.6f+151*j, my+60*4, null);
+				for(int i = 0; i <7; i++){
+					try{
+						if(map[j][i] != 0) canvas.drawBitmap(land[map[j][i]-1], -mx/0.6f+151*j, my+60*i-120, null);
+					}
+					catch(Exception E){}
 				}
 				
         	}
-		}
+		}//
 
 
 		/***
@@ -128,9 +145,10 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
             
             //Update the default gameplay
             if(state == 0){
-	            if(elapsed > 10){
+	            if(elapsed > 7){
 	            	mLastTime = now;
-	            	if(mx < 151*99) mx+=4;
+	            	csprite.Update2();
+	            	if(mx < 151*99*0.6) mx+=4;
 	            }
             }
             
@@ -323,6 +341,10 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
         land[5] = bits[6];
         land[6] = bits[7];
         character = bits[7];
+        csprite = new Sprite(character, 8, 0, 0);
+        arrows[0] = bits[8];
+        arrows[1] = bits[9];
+        arrows[2] = bits[10];
         set = true;
     }
 
@@ -332,9 +354,7 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
     
  
 
-	boolean move = false;
-
-    double oldDist;
+    boolean down = false;
     
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
@@ -352,7 +372,11 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
   	  	}
   	    	  	
 		if (eventaction == MotionEvent.ACTION_DOWN) {
+			point = event.getPointerId(0);
+			pickx = (int)event.getX(point);
 			
+			if(pickx > mCanvasWidth*3/4) down = true;
+			else down = false;
 		}
   	  	
   	  	if (actionCode == MotionEvent.ACTION_POINTER_UP) {
@@ -361,7 +385,20 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
   	  	
 		if (eventaction == MotionEvent.ACTION_UP) {
 			 point = event.getPointerId(0);
-			
+			 pickx = (int)event.getX(point);
+			 picky = (int)event.getY(point);
+				
+			 if(pickx > mCanvasWidth*3/4 && down){
+				if(picky < mCanvasHeight / 3) {
+					if(row > 0) row--;
+				}
+				else if(picky < mCanvasHeight * 2 / 3) {
+					jump = 1;
+				}
+				else{
+					if(row < 2) row++;
+				}
+			 }
 		}
 			
 		if (eventaction == MotionEvent.ACTION_MOVE) {
