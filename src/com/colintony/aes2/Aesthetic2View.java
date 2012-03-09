@@ -24,6 +24,7 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
 	private int state = 0;
 	private int jState = 1;
 	private int jUpDown;
+	int life = 1;
 
 	private float mx, mx2;
 	private float my, my2;
@@ -50,6 +51,7 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
     private Bitmap[] land = new Bitmap[10];
     private Bitmap[] arrows = new Bitmap[3];
     private Bitmap[] gems = new Bitmap[2];
+    private Bitmap[] bars = new Bitmap[5];
     
     Sprite csprite;
         
@@ -122,6 +124,16 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
 			canvas.drawBitmap(arrows[0],4*(mCanvasWidth)-arrows[0].getWidth()-40, 300, null);
 			canvas.drawBitmap(arrows[1],4*(mCanvasWidth)-arrows[0].getWidth()-40, 4*mCanvasHeight-arrows[1].getHeight() - 300, null);
 			canvas.drawBitmap(arrows[2],4*(mCanvasWidth)-arrows[0].getWidth()-40, 4*mCanvasHeight/2-arrows[2].getHeight()/2, null);
+			canvas.restore();
+			
+			canvas.save();
+			canvas.scale(0.66f,0.66f,0,0);
+			canvas.drawBitmap(bars[0],0,0, null);
+			canvas.drawBitmap(bars[1],0,0, null);
+			canvas.drawBitmap(bars[2],0,0, null);
+			canvas.drawBitmap(bars[4-Math.min(1,(life/3))],mCanvasWidth+2*bars[3].getWidth()-200,60, null);
+			canvas.drawBitmap(bars[4-Math.min(1,(life/2))],mCanvasWidth-200,60, null);
+			canvas.drawBitmap(bars[4-Math.min(1,(life/1))],mCanvasWidth-2*bars[3].getWidth()-200,60, null);
 			canvas.restore();
         }
           
@@ -378,6 +390,11 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
         arrows[2] = bits[10];
         gems[0] = bits[18];
         gems[1] = bits[19];
+        bars[0] = bits[20];
+        bars[1] = bits[21];
+        bars[2] = bits[22];
+        bars[3] = bits[23];
+        bars[4] = bits[24];
         set = true;
     }
 
