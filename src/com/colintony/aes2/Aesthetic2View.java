@@ -41,6 +41,7 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
     private Bitmap character;
     private Bitmap[] land = new Bitmap[10];
     private Bitmap[] arrows = new Bitmap[3];
+    private Bitmap[] gems = new Bitmap[2];
     
     Sprite csprite;
         
@@ -339,12 +340,13 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
         land[3] = bits[4];
         land[4] = bits[5];
         land[5] = bits[6];
-        land[6] = bits[7];
         character = bits[7];
         csprite = new Sprite(character, 8, 0, 0);
         arrows[0] = bits[8];
         arrows[1] = bits[9];
         arrows[2] = bits[10];
+        gems[0] = bits[11];
+        gems[1] = bits[12];
         set = true;
     }
 

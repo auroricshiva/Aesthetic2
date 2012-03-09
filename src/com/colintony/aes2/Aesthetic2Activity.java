@@ -14,7 +14,7 @@ import android.view.WindowManager;
 import android.content.res.Configuration;
 
 /**
- * This is a simple Aesthetic2 activity that houses a single Athetic2View.
+ * This is a simple Aesthetic2 activity that houses a single Aesthetic2View.
  */
 public class Aesthetic2Activity extends Activity {
 
@@ -44,7 +44,7 @@ public class Aesthetic2Activity extends Activity {
         
 
 
-       	bits = new Bitmap[11];
+       	bits = new Bitmap[20];
 	    bits[0] = BitmapFactory.decodeResource(getResources(), R.drawable.clouds4);
 	    bits[1] = BitmapFactory.decodeResource(getResources(), R.drawable.grassblock);
 	    bits[2] = BitmapFactory.decodeResource(getResources(), R.drawable.stoneblock);
@@ -56,6 +56,8 @@ public class Aesthetic2Activity extends Activity {
 	    bits[8] = BitmapFactory.decodeResource(getResources(), R.drawable.arrow1);
 	    bits[9] = BitmapFactory.decodeResource(getResources(), R.drawable.arrow2);
 	    bits[10] = BitmapFactory.decodeResource(getResources(), R.drawable.circle);
+	    bits[11] = BitmapFactory.decodeResource(getResources(), R.drawable.gemorange);
+	    bits[12] = BitmapFactory.decodeResource(getResources(), R.drawable.gemblue);
 	    mAesthetic2View.setBits(bits);
 
         System.gc();
