@@ -41,6 +41,7 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
     int map[][];
     Levels level = new Levels();
     int row = 0;
+    int rowy = 0;
     int jump = 0;
     
     	/** images */
@@ -112,12 +113,16 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
 	                endx += 4;
 	            csprite.draw(canvas, Math.round(endx), 240+row*90);
 	        }
+	        
+	        csprite.draw(canvas, 0, 240+rowy-Math.round(jHeight));
 			canvas.restore();
 			
+			canvas.save();
 			canvas.scale(0.25f,0.25f,0,0);
 			canvas.drawBitmap(arrows[0],4*(mCanvasWidth)-arrows[0].getWidth()-40, 300, null);
 			canvas.drawBitmap(arrows[1],4*(mCanvasWidth)-arrows[0].getWidth()-40, 4*mCanvasHeight-arrows[1].getHeight() - 300, null);
 			canvas.drawBitmap(arrows[2],4*(mCanvasWidth)-arrows[0].getWidth()-40, 4*mCanvasHeight/2-arrows[2].getHeight()/2, null);
+			canvas.restore();
         }
           
           
@@ -154,6 +159,8 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
 	            {
 	            	mLastTime = now;
 	            	csprite.Update2();
+
+                    if(rowy != row*90) rowy = rowy + (row*90-rowy)/10;
 	            	if(mx < 151*(map.length-9)*0.6)
 	            	    mx+=4;
 	            	else if(!levelEnd[curLevel])
