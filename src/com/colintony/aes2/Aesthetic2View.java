@@ -108,15 +108,13 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
 	        
 	        canvas.scale(0.75f,0.75f,0,0);
 	        if(!levelEnd[curLevel])
-	            csprite.draw(canvas, 0, 240+row*90-Math.round(jHeight));
+	            csprite.draw(canvas, 0, 240+rowy-Math.round(jHeight));
 	        else
 	        {
 	            if(endx < 533 - csprite.getWidth() / 2)
 	                endx += 4;
-	            csprite.draw(canvas, Math.round(endx), 240+row*90);
+	            csprite.draw(canvas, Math.round(endx), 240+rowy);
 	        }
-	        
-	        csprite.draw(canvas, 0, 240+rowy-Math.round(jHeight));
 			canvas.restore();
 			
 			canvas.save();
@@ -172,12 +170,25 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
 	            	mLastTime = now;
 	            	csprite.Update2();
 
-                    if(rowy != row*90) rowy = rowy + (row*90-rowy)/10;
 	            	if(mx < 151*(map.length-9)*0.6)
 	            	    mx+=4;
 	            	else if(!levelEnd[curLevel])
 	            	    levelEnd[curLevel] = true;
 	            }
+	            
+                if(rowy < row*96)
+                {
+                    rowy += Math.max((row*96-rowy)/8, 5);
+                    if(rowy > row*96)
+                        rowy = row*96;
+                }
+                else if(rowy > row*96)
+                {
+                    rowy += Math.min((row*96-rowy)/8, -5);
+                    if(rowy < row*96)
+                        rowy = row*96;
+                }
+                        
 	            
 	            if(jump == 1)
 	            {
