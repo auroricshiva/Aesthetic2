@@ -90,8 +90,9 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
         	canvas.save();
         	canvas.scale(oscale,oscale,mx,my);
         	
+        	canvas.save();
         	canvas.scale(0.5f,0.5f,mx,my);
-	        canvas.drawBitmap(BackgroundImage, mx, my, null);
+	        canvas.drawBitmap(BackgroundImage, 0, 0, null);
 	        canvas.restore();
 	        
 	        drawLand(map, canvas);
@@ -103,9 +104,9 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
         
         
         private void drawLand(int[][] map, Canvas canvas) {
-        	for(int j = 0; j < 5; j++){
+        	for(int j = 0; j < 21; j++){
 				for(int i = 0; i < 5; i++){
-					if(map[0][i] != 0) canvas.drawBitmap(land[0], mx, my+60*i, null);
+					if((map[j] != null) && map[j][i] != 0) canvas.drawBitmap(land[0], -mx+151*j, my+60*i, null);
 				}
         	}
 		}
@@ -124,7 +125,7 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
             if(state == 0){
 	            if(elapsed > 10){
 	            	mLastTime = now;
-	            	
+	            	mx++;
 	            }
             }
             
