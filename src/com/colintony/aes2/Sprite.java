@@ -30,7 +30,16 @@ public class Sprite {
 		this.sRectangle.right = spriteWidth;
 		this.numFrames = frameCount;
 	}
+
+	public int getHeight()
+    {
+        return spriteHeight;
+    }
 	
+	public int getWidth()
+    {
+        return spriteWidth;
+    }
 	
 	public int getXPos() {
 		return xPos;

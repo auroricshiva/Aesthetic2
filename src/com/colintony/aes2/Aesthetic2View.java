@@ -18,6 +18,9 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
 	Canvas c;
 	Boolean set = false;
 	
+	private boolean levelEnd[] = new boolean[10];
+	
+    private int curLevel = 0;
 	private int state = 0;
 	private int jState = 1;
 	private int jUpDown;
@@ -25,6 +28,7 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
 	private float mx, mx2;
 	private float my, my2;
     private float jHeight = 0;
+    private float endx;
 
 	private float oscale = 0;
 	
@@ -84,7 +88,8 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
 		/**
          * Draws
          */
-        private void doDraw(Canvas canvas) {
+        private void doDraw(Canvas canvas)
+        {
         	canvas.save();
         	canvas.scale(oscale,oscale,0,0);
         	
@@ -99,29 +104,14 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
 	        canvas.restore();
 	        
 	        canvas.scale(0.75f,0.75f,0,0);
-	        if(jump == 1)
+	        if(!levelEnd[curLevel])
+	            csprite.draw(canvas, 0, 240+row*90-Math.round(jHeight));
+	        else
 	        {
-	            if(jUpDown == 1)
-	            {
-	                jHeight += 60/(Math.pow(jState++,1.3));
-	                if(jHeight > 120)
-	                {
-	                    jHeight = 120;
-	                    jUpDown = 0;
-	                }
-	            }
-	            else
-	            {
-	                jHeight -= 60/(Math.pow(jState--,1.3));
-	                if(jHeight < 10)
-	                {
-	                    jHeight = 0;
-	                    jump = 0;
-	                    jState = 1;
-	                }
-	            }
+	            if(endx < 533 - csprite.getWidth() / 2)
+	                endx += 4;
+	            csprite.draw(canvas, Math.round(endx), 240+row*90);
 	        }
-	        csprite.draw(canvas, 0, 240+row*90-Math.round(jHeight));
 			canvas.restore();
 			
 			canvas.scale(0.25f,0.25f,0,0);
@@ -135,17 +125,18 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
         
         
         private void drawLand(int[][] map, Canvas canvas) {
-        	for(int j = 0; j < 100; j++){
+        	for(int j = 0; j < map.length; j++){
         		canvas.drawBitmap(land[2], -mx/0.6f+151*j, my+60*4, null);
 				for(int i = 0; i <7; i++){
 					try{
-						if(map[j][i] != 0) canvas.drawBitmap(land[map[j][i]-1], -mx/0.6f+151*j, my+60*i-120, null);
+						if(map[j][i] != 0)
+						    canvas.drawBitmap(land[map[j][i]-1], -mx/0.6f+151*j, my+60*i-120, null);
 					}
 					catch(Exception E){}
 				}
 				
         	}
-		}//
+		}
 
 
 		/***
@@ -156,17 +147,43 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
             long now = System.currentTimeMillis();
             double elapsed = (now - mLastTime);
             
-            
             //Update the default gameplay
-            if(state == 0){
-	            if(elapsed > 7){
+            if(state == 0)
+            {
+	            if(elapsed > 7)
+	            {
 	            	mLastTime = now;
 	            	csprite.Update2();
-	            	if(mx < 151*99*0.6) mx+=4;
+	            	if(mx < 151*(map.length-9)*0.6)
+	            	    mx+=4;
+	            	else if(!levelEnd[curLevel])
+	            	    levelEnd[curLevel] = true;
+	            }
+	            
+	            if(jump == 1)
+	            {
+	                if(jUpDown == 1)
+	                {
+	                    jHeight += 60/(Math.pow(jState++,1.3));
+	                    if(jHeight > 120)
+	                    {
+	                        jHeight = 120;
+	                        jUpDown = 0;
+	                    }
+	                }
+	                else
+	                {
+	                    jHeight -= 60/(Math.pow(jState--,1.3));
+	                    if(jHeight < 10)
+	                    {
+	                        jHeight = 0;
+	                        jump = 0;
+	                        jState = 1;
+	                    }
+	                }
 	            }
             }
             
-
         }
         
 
@@ -202,14 +219,6 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
         
         
     }
-
-    
-    
-    
-    
-    
-    
-    
 
     /** The thread that actually draws the animation */
     private Aesthetic2Thread thread;
@@ -345,7 +354,8 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
         oscale = xNew/800;
     }
    
-    protected void setBits(Bitmap bits[]){
+    protected void setBits(Bitmap bits[])
+    {
         BackgroundImage = bits[0];
         land[0] = bits[1];
         land[1] = bits[2];
@@ -366,9 +376,6 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
 
 
 
-    
-    
- 
 
     boolean down = false;
     
@@ -407,18 +414,24 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
 			pickx = (int)event.getX(point);
 			picky = (int)event.getY(point);
 				
-			if(pickx > mCanvasWidth - 70 && down){
-				if(picky < mCanvasHeight / 3) {
-					if(row > 0) row--;
+			if(pickx > mCanvasWidth - 70 && down)
+			{
+				if(picky < mCanvasHeight / 3)
+				{
+					if(row > 0)
+					    row--;
 				}
-				else if(picky < mCanvasHeight * 2 / 3) {
-					jump = 1;
-					jUpDown = 1;
+				else if(picky < mCanvasHeight * 2 / 3)
+				{
+				    if(jump != 1)
+				    {
+    					jump = 1;
+    					jUpDown = 1;
+				    }
 				}
-				else{
-					if(row < 2) row++;
-				}
-			 }
+				else if(row < 2)
+				    row++;
+			}
 		}
 			
 		if (eventAction == MotionEvent.ACTION_MOVE) {
