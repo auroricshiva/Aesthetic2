@@ -72,7 +72,7 @@ public class Sprite {
 	
 	public void Update2() {
 		update++;
-		if(update%4 == 0){
+		if(update%3 == 0){
 			currentFrame = (currentFrame + 1)% numFrames;
 			
 			sRectangle.left = currentFrame * spriteWidth+1;

@@ -1,5 +1,5 @@
 *.class
 *.apk
-bin/classes/
+bin/
 *.dex
 gen/
