@@ -50,7 +50,7 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
     private Bitmap character;
     private Bitmap[] land = new Bitmap[10];
     private Bitmap[] arrows = new Bitmap[3];
-    private Bitmap[] collectables = new Bitmap[2];
+    private Bitmap[] collectables = new Bitmap[6];
     private Bitmap[] bars = new Bitmap[5];
     
     Sprite csprite;
@@ -131,7 +131,7 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
         private void drawLand(int[][] map, Canvas canvas) {
         	for(int j = 0; j < map.length; j++){
         		canvas.drawBitmap(land[2], -mx/0.6f+151*j, my+60*4, null);
-				for(int i = 0; i <7; i++){
+				for(int i = 0; i < map[j].length; i++){
 					try{
 						if(map[j][i] != 0)
 						    canvas.drawBitmap(land[map[j][i]-1], -mx/0.6f+151*j, my+60*i-120, null);
@@ -144,7 +144,14 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
         
         private void drawCollectables(int[][] mapCollect, Canvas canvas)
         {
-           //todo: drawing of collectables
+           for(int i = 0; i < mapCollect.length; i++)
+           {
+               for(int j = 0; j < mapCollect[i].length; j++)
+               {
+                   if(mapCollect[i][j] > 0)
+                       canvas.drawBitmap(collectables[mapCollect[i][j]-1], -mx/0.6f+151*i, my+60*j-120, null);
+               }
+           }
         }
 
 
@@ -391,8 +398,12 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
         arrows[0] = bits[8];
         arrows[1] = bits[9];
         arrows[2] = bits[10];
-        collectables[0] = bits[18];
-        collectables[1] = bits[19];
+        collectables[0] = bits[14];
+        collectables[1] = bits[15];
+        collectables[2] = bits[16];
+        collectables[3] = bits[17];
+        collectables[4] = bits[18];
+        collectables[5] = bits[19];
         bars[0] = bits[20];
         bars[1] = bits[21];
         bars[2] = bits[22];

@@ -57,6 +57,9 @@ public class Sprite {
 		yPos = value;
 	}
 	
+	/**
+	 * isn't used
+	 */
 	public void Update() {
 		update++;
 		if(update%2 == 0){
@@ -69,7 +72,7 @@ public class Sprite {
 	
 	public void Update2() {
 		update++;
-		if(update%8 == 0){
+		if(update%4 == 0){
 			currentFrame = (currentFrame + 1)% numFrames;
 			
 			sRectangle.left = currentFrame * spriteWidth;
