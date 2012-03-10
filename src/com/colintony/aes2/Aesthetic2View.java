@@ -204,8 +204,8 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
                    if(mapCollect[i][j] > 0){
                 	   canvas.save();
                    	   canvas.scale(.5f,.5f,0,0);
-                   	   canvas.drawBitmap(shadow, 2*(-mx/0.6f+151*i), 2*(my+60*j-60), null);
-                       canvas.drawBitmap(collectables[mapCollect[i][j]-1], 2*(-mx/0.6f+151*i), 2*(my+60*j-120)+16f*(float)Math.cos(cont/10f), null);
+                   	   canvas.drawBitmap(shadow, 2*(-mx/0.6f+151*i), 2*(my+120*j), null);
+                       canvas.drawBitmap(collectables[mapCollect[i][j]-1], 2*(-mx/0.6f+151*i), 2*(my+120*j-60)+16f*(float)Math.cos(cont/10f), null);
                        canvas.restore();
                    }
                }
@@ -261,17 +261,16 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
                 }
                 
                 //collision
-                if(colx > 90.6)
+                if(colx > 90.6 && col < mapLevel.length-9)
                 {
                     colx -= 90.6;
                     col++;
-                    System.out.println(col);
                 }
                 //gem is on ground
-                if(mapCollectables[col][row*2+1] != 0)
+                if(mapCollectables[col][row] != 0)
                 {
-                    int temp = mapCollectables[col][row*2+1];
-                    mapCollectables[col][row*2+1] = 0;
+                    int temp = mapCollectables[col][row];
+                    mapCollectables[col][row] = 0;
                     if(temp < 4)//queue
                     {
                         gemQueue.add(temp);
@@ -282,20 +281,6 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
                     {
                         gemStack.add(temp);
                     }
-                }
-                //gem is floating
-                if(mapCollectables[col][row*2] != 0 && jump == 1)
-                {
-                    int temp = mapCollectables[col][row*2];
-                    mapCollectables[col][row*2] = 0;
-                    if(temp < 4)//queue
-                    {
-                        gemQueue.add(temp);
-                        if(gemQueue.size() > MAX_SIZE)
-                            gemQueue.remove();
-                    }
-                    else if(gemStack.size() < MAX_SIZE)//stack
-                        gemStack.add(temp);
                 }
                 
 	            if(jump == 1)
@@ -303,9 +288,9 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
 	                if(jUpDown == 1)
 	                {
 	                    jHeight += 60/(Math.pow(jState++,1.3));
-	                    if(jHeight > 120)
+	                    if(jHeight > 150)
 	                    {
-	                        jHeight = 120;
+	                        jHeight = 150;
 	                        jUpDown = 0;
 	                    }
 	                }
