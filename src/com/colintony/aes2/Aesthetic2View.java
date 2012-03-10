@@ -91,9 +91,8 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
             lines[0][2] = 9;
             lines[0][3] = 9;
             lines[0][4] = 9;
-            lines[0][5] = 8;
-            lines[0][6] = 7;
-            lines[0][7] = 8;
+            lines[0][5] = 9;
+
             
 
             lines[3][0] = 7;
@@ -101,9 +100,9 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
             lines[3][2] = 9;
             lines[3][3] = 9;
             lines[3][4] = 9;
-            lines[3][5] = 8;
-            lines[3][6] = 7;
-            lines[3][7] = 0;
+            lines[3][5] = 0;
+
+            pointer = 5;
             
         }
         
@@ -575,7 +574,7 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
             else if (endx == -200){
 	            if(pickx > mCanvasWidth/8 && pickx < mCanvasWidth/4)
 	            {
-	            	if( pointer < 7 && !gemQueue.isEmpty()){
+	            	if( pointer < 6 && !gemQueue.isEmpty()){
 	            		lines[3][pointer] = gemQueue.removeFirst();		      
 		            	pointer++;
 		            	click = 1;
@@ -583,7 +582,7 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
 	            }
 	            else if(pickx > mCanvasWidth/4 && pickx < mCanvasWidth/3)
 	            {
-	            	if( pointer < 7 && !gemStack.isEmpty()){
+	            	if( pointer < 6 && !gemStack.isEmpty()){
 		            	lines[3][pointer] = gemStack.pop();
 		            	pointer++;
 		            	click = 2;
@@ -605,6 +604,7 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
 	            		click = 4;
 	            		curLevel++;
 	            		won = false;
+	            		pointer = 0;
 	            		lines[3] = new int[8];
 	            	}
 	            }
