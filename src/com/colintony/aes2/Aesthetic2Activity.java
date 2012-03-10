@@ -1,7 +1,5 @@
 package com.colintony.aes2;
 
-import com.colintony.aes2.Aesthetic2View.Aesthetic2Thread;
-
 import android.app.Activity;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;

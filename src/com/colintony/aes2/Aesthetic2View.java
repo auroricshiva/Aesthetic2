@@ -7,7 +7,6 @@ import java.util.Stack;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Paint;
 import android.os.Handler;
 import android.util.AttributeSet;
 import android.view.KeyEvent;
@@ -64,8 +63,7 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
     
     /** containers */
     private Stack<Integer> gemStack = new Stack<Integer>();
-    private Queue<Integer> gemQueue = new LinkedList<Integer>();
-    private Integer[] lineStack, lineQueue;
+    private LinkedList<Integer> gemQueue = new LinkedList<Integer>();
         
     class Aesthetic2Thread extends Thread {
         
@@ -164,14 +162,15 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
 			
 			canvas.save();
 			canvas.scale(0.25f,0.25f,0,0);
+//			System.out.println(lineQueue.length + " " + lineStack.length + " " + lineQueue.toString() + lineStack.toString());
 			for(int i = 0; i < 6; i++){
 				if(lines[0][i] != 0) canvas.drawBitmap(collectables[lines[0][i]-1],870+260*i-(int)(4*.66*endx),10-(int)(4*.66*endx), null);
 			}
-			for(int i = 0; i < 6; i++){
-				if(lines[1][i] != 0) canvas.drawBitmap(collectables[lines[1][i]-1],54+(int)(-4*.66*endx+0),340+i*210, null);
+			for(int i = 0; i < gemQueue.size(); i++){
+				if(gemQueue.get(i) != 0) canvas.drawBitmap(collectables[gemQueue.get(i)-1],54+(int)(-4*.66*endx+0),340+(gemQueue.size()-i-1)*210, null);
 			}
-			for(int i = 0; i < 6; i++){
-				if(lines[2][i] != 0) canvas.drawBitmap(collectables[lines[2][i]-1],245+(int)(-4*.66*1.4*endx+0),340+i*210, null);
+			for(int i = 0; i < gemStack.size(); i++){
+				if(gemStack.get(i) != 0) canvas.drawBitmap(collectables[gemStack.get(i)-1],245+(int)(-4*.66*1.4*endx+0),340+(5-i)*210, null);
 			}
 			if(levelEnd[curLevel]){
 				for(int i = 0; i < 6; i++){
@@ -239,7 +238,7 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
 	            	if(mx < 151*(mapLevel.length-9)*0.6)
 	            	{
 	            	    mx+=4;
-	            	    colx+=2;
+	            	    colx+=4;
 	            	}
 	            	else if(!levelEnd[curLevel])
 	            	{
@@ -266,23 +265,22 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
                 {
                     colx -= 90.6;
                     col++;
+                    System.out.println(col);
                 }
                 //gem is on ground
                 if(mapCollectables[col][row*2+1] != 0)
                 {
-                    int temp = mapCollectables[col][row*2];
+                    int temp = mapCollectables[col][row*2+1];
                     mapCollectables[col][row*2+1] = 0;
                     if(temp < 4)//queue
                     {
                         gemQueue.add(temp);
                         if(gemQueue.size() > MAX_SIZE)
                             gemQueue.remove();
-	                        gemQueue.toArray(lineQueue);
                     }
                     else if(gemStack.size() < MAX_SIZE)//stack
                     {
                         gemStack.add(temp);
-                        gemStack.toArray(lineStack);
                     }
                 }
                 //gem is floating
