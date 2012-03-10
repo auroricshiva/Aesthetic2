@@ -332,7 +332,7 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
 	            
 	            //win check
 	            won = true;
-	            for(int i = 0; i<7; i++){
+	            for(int i = 0; i<6; i++){
 	            	if(lines[3][i]%3 != lines[0][i]%3 || lines[3][i] == 0) won = false;
 	            }
             }
@@ -611,6 +611,7 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
 	            		won = false;
 	            		pointer = 0;
 	            		lines[3] = new int[8];
+	            		life = 3;
 	            		while(!gemStack.isEmpty()) gemStack.pop();
 	            		while(!gemQueue.isEmpty()) gemQueue.remove();
 	            	}
