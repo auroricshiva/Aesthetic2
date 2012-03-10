@@ -46,6 +46,7 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
     int row = 0;
     int rowy = 0;
     int jump = 0;
+    int cont = 0;
     
     	/** images */
     private Bitmap BackgroundImage;
@@ -189,8 +190,12 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
            {
                for(int j = 0; j < mapCollect[i].length; j++)
                {
-                   if(mapCollect[i][j] > 0)
+                   if(mapCollect[i][j] > 0){
+                	   canvas.save();
+                   	   canvas.scale(.5f,.5f,0,0);
                        canvas.drawBitmap(collectables[mapCollect[i][j]-1], -mx/0.6f+151*i, my+60*j-120, null);
+                       canvas.restore();
+                   }
                }
            }
         }
@@ -210,6 +215,7 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
 	            if(elapsed > 7)
 	            {
 	            	mLastTime = now;
+	            	cont++;
 	            	if(!levelEnd[curLevel]) {
 	            		csprite.Update2();
 		                if(endx != 0)
