@@ -1,7 +1,6 @@
 package com.colintony.aes2;
 
 import java.util.LinkedList;
-import java.util.Queue;
 import java.util.Stack;
 
 import android.content.Context;
@@ -30,10 +29,10 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
 	int life = 1;
 	final static private int MAX_SIZE = 6;
 
-	private float mx, mx2;
-	private float my, my2;
+	private float mx;
+	private float my;
     private float jHeight = 0;
-    private float endx, endy;
+    private float endx;
     private float colx;
 
 	private float oscale = 0;
