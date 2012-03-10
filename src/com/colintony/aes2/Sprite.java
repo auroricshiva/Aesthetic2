@@ -80,6 +80,13 @@ public class Sprite {
 		}
 	}
 	
+	public void setEnd() {
+			currentFrame = 0;
+			
+			sRectangle.left = currentFrame * spriteWidth+1;
+			sRectangle.right = sRectangle.left + spriteWidth-2;		
+	}
+	
 	public void draw(Canvas canvas, int mx, int my) {
 		Rect dest = new Rect(getXPos()+mx, getYPos()+my, getXPos()+mx + spriteWidth,
 										getYPos()+my + spriteHeight);

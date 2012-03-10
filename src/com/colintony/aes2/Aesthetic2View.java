@@ -40,8 +40,9 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
     private Paint paint = new Paint();
     
     int mapLevel[][], mapCollectables[][];
-    int lines[][] = new int [3][8];
+    int lines[][] = new int [4][8];
     Levels level = new Levels();
+    int pointer = 0;
     int row = 0;
     int rowy = 0;
     int jump = 0;
@@ -127,41 +128,42 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
 	        canvas.restore();
 	        
 	        canvas.scale(0.75f,0.75f,0,0);
-	        if(!levelEnd[curLevel])
-	            csprite.draw(canvas, 200, 180+rowy-Math.round(jHeight));
-	        else
-	        {
-	            csprite.draw(canvas, Math.round(endx), Math.round(endy));
-	        }
+            csprite.draw(canvas, 200+(int)endx, 180+rowy-Math.round(jHeight));
+
 			canvas.restore();
 			
 			canvas.save();
 			canvas.scale(0.25f,0.25f,0,0);
-			canvas.drawBitmap(arrows[0],4*(mCanvasWidth)-arrows[0].getWidth()-40, 300, null);
-			canvas.drawBitmap(arrows[1],4*(mCanvasWidth)-arrows[0].getWidth()-40, 4*mCanvasHeight-arrows[1].getHeight() - 300, null);
-			canvas.drawBitmap(arrows[2],4*(mCanvasWidth)-arrows[0].getWidth()-40, 4*mCanvasHeight/2-arrows[2].getHeight()/2, null);
+			canvas.drawBitmap(arrows[0],-4*endx+4*(mCanvasWidth)-arrows[0].getWidth()-40, 300, null);
+			canvas.drawBitmap(arrows[1],-4*endx+4*(mCanvasWidth)-arrows[0].getWidth()-40, 4*mCanvasHeight-arrows[1].getHeight() - 300, null);
+			canvas.drawBitmap(arrows[2],-4*endx+4*(mCanvasWidth)-arrows[0].getWidth()-40, 4*mCanvasHeight/2-arrows[2].getHeight()/2, null);
 			canvas.restore();
 			
 			canvas.save();
 			canvas.scale(0.66f,0.66f,0,0);
-			canvas.drawBitmap(bars[0],0,0, null);
-			canvas.drawBitmap(bars[1],0,0, null);
-			canvas.drawBitmap(bars[2],0,0, null);
-			canvas.drawBitmap(bars[4-Math.min(1,(life/3))],mCanvasWidth+2*bars[3].getWidth()-220,60, null);
-			canvas.drawBitmap(bars[4-Math.min(1,(life/2))],mCanvasWidth-220,60, null);
-			canvas.drawBitmap(bars[4-Math.min(1,(life/1))],mCanvasWidth-2*bars[3].getWidth()-220,60, null);
+			canvas.drawBitmap(bars[0],(int)(-1*endx+0),0, null);
+			canvas.drawBitmap(bars[1],(int)(-1.4*endx+0),0, null);
+			canvas.drawBitmap(bars[2],-1*endx,-1*endx+0, null);
+			canvas.drawBitmap(bars[4-Math.min(1,(life/3))],mCanvasWidth+2*bars[3].getWidth()-220,endx+60, null);
+			canvas.drawBitmap(bars[4-Math.min(1,(life/2))],mCanvasWidth-220,endx+60, null);
+			canvas.drawBitmap(bars[4-Math.min(1,(life/1))],mCanvasWidth-2*bars[3].getWidth()-220,endx+60, null);
 			canvas.restore();
 			
 			canvas.save();
 			canvas.scale(0.25f,0.25f,0,0);
 			for(int i = 0; i < 6; i++){
-				if(lines[0][i] != 0) canvas.drawBitmap(collectables[lines[0][i]-1],870+260*i,10, null);
+				if(lines[0][i] != 0) canvas.drawBitmap(collectables[lines[0][i]-1],870+260*i-(int)(4*.66*endx),10-(int)(4*.66*endx), null);
 			}
 			for(int i = 0; i < 6; i++){
-				if(lines[1][i] != 0) canvas.drawBitmap(collectables[lines[1][i]-1],54,340+i*210, null);
+				if(lines[1][i] != 0) canvas.drawBitmap(collectables[lines[1][i]-1],54+(int)(-4*.66*endx+0),340+i*210, null);
 			}
 			for(int i = 0; i < 6; i++){
-				if(lines[2][i] != 0) canvas.drawBitmap(collectables[lines[2][i]-1],245,260+i*210, null);
+				if(lines[2][i] != 0) canvas.drawBitmap(collectables[lines[2][i]-1],245+(int)(-4*.66*1.4*endx+0),260+i*210, null);
+			}
+			if(levelEnd[curLevel]){
+				for(int i = 0; i < 6; i++){
+					if(lines[3][i] != 0) canvas.drawBitmap(collectables[lines[3][i]-1],870+260*i-(int)(4*.66*endx),410-(int)(4*.66*endx), null);
+				}
 			}
 			canvas.restore();
         }
@@ -208,14 +210,19 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
 	            if(elapsed > 7)
 	            {
 	            	mLastTime = now;
-	            	csprite.Update2();
+	            	if(!levelEnd[curLevel]) {
+	            		csprite.Update2();
+		                if(endx != 0)
+		                    endx +=2;
+	            	}
+	            	else csprite.setEnd();
 
 	            	if(mx < 151*(mapLevel.length-9)*0.6)
-	            	    mx+=4;
+	            	    mx+=6;
 	            	else if(!levelEnd[curLevel])
 	            	{
 	            	    levelEnd[curLevel] = true;
-	            	    endy = 240+rowy;
+	            	    row = 2;
 	            	}
 	            }
 	            
@@ -258,10 +265,8 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
 	            
 	            if(levelEnd[curLevel])
 	            {
-	                if(endx < 533 - csprite.getWidth() / 2)
-	                    endx += 6;
-	                if(endy != 330)
-	                    endy += (330 - endy)/20;
+	                if(endx != -200)
+	                    endx -=2;
 	            }
             }
             
@@ -475,24 +480,46 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
 			point = event.getPointerId(0);
 			pickx = (int)event.getX(point);
             picky = (int)event.getY(point);
-                
-            if(pickx > mCanvasWidth - 70 && !levelEnd[curLevel])
-            {
-                if(picky < mCanvasHeight / 3)
-                {
-                    if(row > 0)
-                        row--;
-                }
-                else if(picky < mCanvasHeight * 2 / 3)
-                {
-                    if(jump != 1)
-                    {
-                        jump = 1;
-                        jUpDown = 1;
-                    }
-                }
-                else if(row < 2)
-                    row++;
+             
+            if(!levelEnd[curLevel]){
+	            if(pickx > mCanvasWidth - 70 )
+	            {
+	                if(picky < mCanvasHeight / 3)
+	                {
+	                    if(row > 0)
+	                        row--;
+	                }
+	                else if(picky < mCanvasHeight * 2 / 3)
+	                {
+	                    if(jump != 1)
+	                    {
+	                        jump = 1;
+	                        jUpDown = 1;
+	                    }
+	                }
+	                else if(row < 2)
+	                    row++;
+	            }
+            }
+            else{
+	            if(pickx > mCanvasWidth/8 && pickx < mCanvasWidth/4)
+	            {
+	            	lines[3][pointer] = lines[1][5];
+	            	for(int i = 5; i > 0; i--){
+	            		lines[1][i] = lines[1][i-1];
+	            	}
+	            	lines[1][0] = 0;
+	            	if( pointer < 7)pointer++;
+	            }
+	            else if(pickx > mCanvasWidth/4 && pickx < mCanvasWidth/3)
+	            {
+	            	lines[3][pointer] = lines[2][0];
+	            	for(int i = 0; i < 5; i++){
+	            		lines[2][i] = lines[2][i+1];
+	            	}
+	            	lines[2][5] = 0;
+	            	if( pointer < 7)pointer++;
+	            }
             }
 		}
   	  	
