@@ -60,6 +60,7 @@ public class Aesthetic2Activity extends Activity {
 	    bits[10] = BitmapFactory.decodeResource(getResources(), R.drawable.circle);
 	    bits[11] = BitmapFactory.decodeResource(getResources(), R.drawable.wallblocktall);
 	    
+	    bits[13] = BitmapFactory.decodeResource(getResources(), R.drawable.shadow);
         bits[14] = BitmapFactory.decodeResource(getResources(), R.drawable.gemblue2);
         bits[15] = BitmapFactory.decodeResource(getResources(), R.drawable.gemgreen2);
         bits[16] = BitmapFactory.decodeResource(getResources(), R.drawable.gemorange2);

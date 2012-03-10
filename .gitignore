@@ -2,3 +2,4 @@
 *.apk
 bin/classes/
 *.dex
+gen/
