@@ -16,7 +16,7 @@ import android.content.res.Configuration;
  */
 public class Aesthetic2Activity extends Activity {
 
-	private Bitmap[] bits = new Bitmap[10];
+	private Bitmap[] bits;
 	
     /** A handle to the View in which the game is running. */
     private Aesthetic2View mAesthetic2View;
@@ -42,7 +42,7 @@ public class Aesthetic2Activity extends Activity {
         
 
 
-       	bits = new Bitmap[30];
+       	bits = new Bitmap[40];
 	    bits[0] = BitmapFactory.decodeResource(getResources(), R.drawable.clouds4);
 	    bits[1] = BitmapFactory.decodeResource(getResources(), R.drawable.grassblock);
 	    bits[2] = BitmapFactory.decodeResource(getResources(), R.drawable.stoneblock);
@@ -72,6 +72,13 @@ public class Aesthetic2Activity extends Activity {
 	    bits[25] = BitmapFactory.decodeResource(getResources(), R.drawable.topbar);
 	    bits[26] = BitmapFactory.decodeResource(getResources(), R.drawable.heart1);
 	    bits[27] = BitmapFactory.decodeResource(getResources(), R.drawable.heart2);
+	    bits[28] = BitmapFactory.decodeResource(getResources(), R.drawable.queue2);
+	    bits[29] = BitmapFactory.decodeResource(getResources(), R.drawable.stack2);
+	    bits[30] = BitmapFactory.decodeResource(getResources(), R.drawable.check);
+	    bits[31] = BitmapFactory.decodeResource(getResources(), R.drawable.check2);
+	    bits[32] = BitmapFactory.decodeResource(getResources(), R.drawable.check3);
+	    bits[33] = BitmapFactory.decodeResource(getResources(), R.drawable.undo);
+	    bits[34] = BitmapFactory.decodeResource(getResources(), R.drawable.undo2);
 	    mAesthetic2View.setBits(bits);
 
         System.gc();
