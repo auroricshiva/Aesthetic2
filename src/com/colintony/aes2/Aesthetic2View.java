@@ -21,7 +21,7 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
 	Boolean set = false;
 	
 	private boolean levelEnd[] = new boolean[10];
-	private boolean won;
+	private boolean won = false;
 	
     private int curLevel = 1;
 	private int state = 0;
@@ -252,7 +252,7 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
 	            	if(mx < 151*(mapLevel.length-59)*0.6*(curLevel))
 	            	{
 	            	    mx+=5;
-	            	    colx+=4;
+	            	    colx+=5;
 	            	}
 	            	else if(!levelEnd[curLevel])
 	            	{
@@ -332,8 +332,8 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
 	            
 	            //win check
 	            won = true;
-	            for(int i = 0; i<8; i++){
-	            	if(lines[3][i]%3 != lines[0][i]%3) won = false;
+	            for(int i = 0; i<7; i++){
+	            	if(lines[3][i]%3 != lines[0][i]%3 || lines[3][i] == 0) won = false;
 	            }
             }
             
@@ -597,7 +597,7 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
 	            {
 	            	if(pointer>0){
 		            	if(lines[3][pointer-1] < 4) gemQueue.addFirst(lines[3][pointer-1] );
-		            	else gemStack.push(lines[3][pointer-1] );
+		            	else if( lines[3][pointer-1] < 7) gemStack.push(lines[3][pointer-1] );
 		            	lines[3][pointer-1] = 0;
 		            	pointer--;
 	            		click = 3;	            		
@@ -611,6 +611,8 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
 	            		won = false;
 	            		pointer = 0;
 	            		lines[3] = new int[8];
+	            		while(!gemStack.isEmpty()) gemStack.pop();
+	            		while(!gemQueue.isEmpty()) gemQueue.remove();
 	            	}
 	            }
             }
