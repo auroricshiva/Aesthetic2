@@ -42,7 +42,7 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
     int mapLevel[][], mapCollectables[][];
     int lines[][] = new int [3][8];
     Levels level = new Levels();
-    int row = 0;
+    int row = 0, col = 0;
     int rowy = 0;
     int jump = 0;
     
@@ -53,6 +53,7 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
     private Bitmap[] arrows = new Bitmap[3];
     private Bitmap[] collectables = new Bitmap[6];
     private Bitmap[] bars = new Bitmap[5];
+    private Bitmap shadow;
     
     Sprite csprite;
         
@@ -186,6 +187,8 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
                {
                    if(mapCollect[i][j] > 0)
                        canvas.drawBitmap(collectables[mapCollect[i][j]-1], -mx/0.6f+151*i, my+60*j-120, null);
+                   if(mapCollect[i][j] % 2 == 1)
+                       canvas.drawBitmap(shadow, -mx/0.6f+151*i, my+60*j-60, null);
                }
            }
         }
@@ -202,13 +205,14 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
             //Update the default gameplay
             if(state == 0)
             {
+
 	            if(elapsed > 7)
 	            {
 	            	mLastTime = now;
 	            	csprite.Update2();
 
 	            	if(mx < 151*(mapLevel.length-9)*0.6)
-	            	    mx+=4;
+	            	    mx+=6;
 	            	else if(!levelEnd[curLevel])
 	            	{
 	            	    levelEnd[curLevel] = true;
@@ -228,23 +232,22 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
                     if(rowy < row*96)
                         rowy = row*96;
                 }
-                        
 	           
 	            if(jump == 1)
 	            {
 	                if(jUpDown == 1)
 	                {
 	                    jHeight += 60/(Math.pow(jState++,1.3));
-	                    if(jHeight > 120)
+	                    if(jHeight > 150)
 	                    {
-	                        jHeight = 120;
+	                        jHeight = 150;
 	                        jUpDown = 0;
 	                    }
 	                }
 	                else
 	                {
 	                    jHeight -= 60/(Math.pow(jState--,1.3));
-	                    if(jHeight < 10)
+	                    if(jHeight < 5)
 	                    {
 	                        jHeight = 0;
 	                        jump = 0;
@@ -252,6 +255,8 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
 	                    }
 	                }
 	            }
+	            
+	            if(true)//this is where teh collision stuff is supposed to go, now that i understand whats going on
 	            
 	            if(levelEnd[curLevel])
 	            {
@@ -434,6 +439,7 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
         arrows[0] = bits[8];
         arrows[1] = bits[9];
         arrows[2] = bits[10];
+        shadow = bits[13];
         collectables[0] = bits[14];
         collectables[1] = bits[15];
         collectables[2] = bits[16];
