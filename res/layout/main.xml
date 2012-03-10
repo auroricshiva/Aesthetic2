@@ -8,6 +8,15 @@
 	android:layout_height="fill_parent">
     
     <ImageView
+        android:id="@+id/TitleScreen"
+        android:contentDescription="@string/titlescreen"
+		android:layout_width="fill_parent"
+		android:layout_height="fill_parent"
+		android:layout_centerHorizontal="true"
+        android:src="@drawable/titlescreen">
+    </ImageView>
+    
+    <ImageView
         android:id="@+id/GameTitle"
         android:contentDescription="@string/gametitle"
 		android:layout_width="500dp"
