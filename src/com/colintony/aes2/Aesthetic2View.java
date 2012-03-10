@@ -28,7 +28,7 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
 	private int jState = 1;
 	private int jUpDown;
 	private int click = 0;
-	int life = 1;
+	int life = 3;
 	final static private int MAX_SIZE = 6;
 
 	private float mx;
@@ -129,10 +129,15 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
 	        drawLand(mapLevel, canvas);
 	        canvas.restore();
 
+			canvas.save();
+	        canvas.scale(0.6f,0.6f,0,mCanvasHeight);
+			if(!levelEnd[curLevel]) drawShadows(mapCollectables, canvas);
+	        canvas.restore();
+	        
 	        canvas.save();
 	        jScale = (float)(0.75*(1-jHeight/180));
             canvas.scale(jScale, jScale, shadow.getWidth()/2, shadow.getHeight()*3/4);
-            canvas.drawBitmap(shadow, (float)((150+(int)endx)/jScale), (float)(100+rowy)/jScale, null);
+            canvas.drawBitmap(shadow, (float)((150+(int)endx)/jScale), (float)(100+rowy*3/4)/jScale, null);
             canvas.restore();
 	        canvas.scale(0.75f,0.75f,0,0);
             csprite.draw(canvas, 200+(int)endx, 180+rowy-Math.round(jHeight));
@@ -218,8 +223,23 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
                    if(mapCollect[i][j] > 0){
                 	   canvas.save();
                    	   canvas.scale(.5f,.5f,0,0);
-                   	   canvas.drawBitmap(shadow, 2*(-mx/0.6f+151*i), 2*(my+120*j), null);
                        canvas.drawBitmap(collectables[mapCollect[i][j]-1], 2*(-mx/0.6f+151*i), 2*(my+120*j-60)+16f*(float)Math.cos(cont/10f), null);
+                       canvas.restore();
+                   }
+               }
+           }
+        }
+        
+        private void drawShadows(int[][] mapCollect, Canvas canvas)
+        {
+           for(int i = 0; i < mapCollect.length; i++)
+           {
+               for(int j = 0; j < mapCollect[i].length; j++)
+               {
+                   if(mapCollect[i][j] > 0){
+                	   canvas.save();
+                   	   canvas.scale(.5f,.5f,0,0);
+                   	   canvas.drawBitmap(shadow, 2*(-mx/0.6f+151*i), 2*(my+120*j), null);
                        canvas.restore();
                    }
                }
