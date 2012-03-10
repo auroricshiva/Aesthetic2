@@ -206,7 +206,7 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
                 	   canvas.save();
                    	   canvas.scale(.5f,.5f,0,0);
                    	   canvas.drawBitmap(shadow, 2*(-mx/0.6f+151*i), 2*(my+60*j-60), null);
-                       canvas.drawBitmap(collectables[mapCollect[i][j]-1], 2*(-mx/0.6f+151*i), 2*(my+60*j-120), null);
+                       canvas.drawBitmap(collectables[mapCollect[i][j]-1], 2*(-mx/0.6f+151*i), 2*(my+60*j-120)+16f*(float)Math.cos(cont/10f), null);
                        canvas.restore();
                    }
                }
