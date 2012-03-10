@@ -19,8 +19,8 @@
     <ImageView
         android:id="@+id/GameTitle"
         android:contentDescription="@string/gametitle"
-		android:layout_width="500dp"
-		android:layout_height="100dp"
+		android:layout_width="472dp"
+		android:layout_height="149dp"
 		android:layout_centerHorizontal="true"
         android:src="@drawable/gametitle">
     </ImageView>
@@ -31,7 +31,7 @@
 		android:layout_height="wrap_content"
 		android:orientation="horizontal"
 		android:layout_centerHorizontal="true"
-		android:layout_below="@+id/GameTitle">
+		android:layout_marginTop="130dp">
 	    
 	    <Button
 			android:id="@+id/StartGame"

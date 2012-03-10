@@ -31,7 +31,7 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
 
 	private float mx;
 	private float my;
-    private float jHeight = 0;
+    private float jHeight = 0, jScale = 0.75f;
     private float endx;
     private float colx;
 
@@ -132,7 +132,12 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
 	        canvas.scale(0.6f,0.6f,0,mCanvasHeight);
 	        drawLand(mapLevel, canvas);
 	        canvas.restore();
-	        
+
+	        canvas.save();
+	        jScale = (float)(0.75*(1-jHeight/180));
+            canvas.scale(jScale, jScale, shadow.getWidth()/2, shadow.getHeight()*3/4);
+            canvas.drawBitmap(shadow, (float)((150+(int)endx)/jScale), (float)(100+rowy)/jScale, null);
+            canvas.restore();
 	        canvas.scale(0.75f,0.75f,0,0);
             csprite.draw(canvas, 200+(int)endx, 180+rowy-Math.round(jHeight));
 			canvas.restore();
@@ -278,7 +283,7 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
                     }
                     else if(gemStack.size() < MAX_SIZE)//stack
                     {
-                        gemStack.add(temp);
+                        gemStack.push(temp);
                     }
                 }
                 
