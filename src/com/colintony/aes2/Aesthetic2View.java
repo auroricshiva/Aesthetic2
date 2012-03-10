@@ -39,7 +39,7 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
 	
     private Paint paint = new Paint();
     
-    int map[][];
+    int mapLevel[][], mapCollectables[][];
     Levels level = new Levels();
     int row = 0;
     int rowy = 0;
@@ -50,7 +50,7 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
     private Bitmap character;
     private Bitmap[] land = new Bitmap[10];
     private Bitmap[] arrows = new Bitmap[3];
-    private Bitmap[] gems = new Bitmap[2];
+    private Bitmap[] collectables = new Bitmap[2];
     private Bitmap[] bars = new Bitmap[5];
     
     Sprite csprite;
@@ -67,19 +67,12 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
         /** Used to figure out elapsed time between frames */
         private long mLastTime = 0;
         
-
-        
-        
-        
-        
-        
-        
-        
-        
         public Aesthetic2Thread(SurfaceHolder surfaceHolder, Context context, Handler handler) {
             // get handles to some important objects
             SurfaceHolder = surfaceHolder;
-            map = level.setLevel(0);
+            level.setLevel(0);
+            mapLevel = level.getLevelMap();
+            mapCollectables = level.getCollectableMap();
             state = 0;
         }
         
@@ -103,7 +96,8 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
 	        
 	        canvas.save();
 	        canvas.scale(0.6f,0.6f,0,mCanvasHeight);
-	        drawLand(map, canvas);
+	        drawLand(mapLevel, canvas);
+	        drawCollectables(mapCollectables, canvas);
 	        canvas.restore();
 	        
 	        canvas.scale(0.75f,0.75f,0,0);
@@ -133,9 +127,6 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
 			canvas.restore();
         }
           
-          
-
-        
         
         private void drawLand(int[][] map, Canvas canvas) {
         	for(int j = 0; j < map.length; j++){
@@ -150,6 +141,11 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
 				
         	}
 		}
+        
+        private void drawCollectables(int[][] mapCollect, Canvas canvas)
+        {
+           //todo: drawing of collectables
+        }
 
 
 		/***
@@ -168,7 +164,7 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
 	            	mLastTime = now;
 	            	csprite.Update2();
 
-	            	if(mx < 151*(map.length-9)*0.6)
+	            	if(mx < 151*(mapLevel.length-9)*0.6)
 	            	    mx+=4;
 	            	else if(!levelEnd[curLevel])
 	            	{
@@ -224,9 +220,6 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
             }
             
         }
-        
-
-        
 
         @Override
         public void run() {
@@ -250,19 +243,14 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
             }
         }
 
-        
-               
         public void setRunning(boolean b) {
             mRun = b;
         }
-        
         
     }
 
     /** The thread that actually draws the animation */
     private Aesthetic2Thread thread;
-
-    
     
     public Aesthetic2View(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -319,10 +307,6 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
         //if (!hasWindowFocus) thread.setRunning(false);
     }
 
-
-    
- 
-
     /*
      * Callback invoked when the Surface has been created and is ready to be
      * used.
@@ -342,7 +326,6 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
 
     }
 
-    
     
     /*
      * Callback invoked when the Surface has been destroyed and must no longer
@@ -408,8 +391,8 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
         arrows[0] = bits[8];
         arrows[1] = bits[9];
         arrows[2] = bits[10];
-        gems[0] = bits[18];
-        gems[1] = bits[19];
+        collectables[0] = bits[18];
+        collectables[1] = bits[19];
         bars[0] = bits[20];
         bars[1] = bits[21];
         bars[2] = bits[22];
