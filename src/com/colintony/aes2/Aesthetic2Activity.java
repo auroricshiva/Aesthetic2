@@ -66,15 +66,15 @@ public class Aesthetic2Activity extends Activity {
         bits[17] = BitmapFactory.decodeResource(getResources(), R.drawable.gemblue);
         bits[18] = BitmapFactory.decodeResource(getResources(), R.drawable.gemgreen);
 	    bits[19] = BitmapFactory.decodeResource(getResources(), R.drawable.gemorange);
-        bits[17] = BitmapFactory.decodeResource(getResources(), R.drawable.gemblue);
-        bits[18] = BitmapFactory.decodeResource(getResources(), R.drawable.gemgreen);
-	    bits[19] = BitmapFactory.decodeResource(getResources(), R.drawable.gemorange);
+        bits[20] = BitmapFactory.decodeResource(getResources(), R.drawable.blue1);
+        bits[21] = BitmapFactory.decodeResource(getResources(), R.drawable.green1);
+	    bits[22] = BitmapFactory.decodeResource(getResources(), R.drawable.orange1);
 	    
-	    bits[20] = BitmapFactory.decodeResource(getResources(), R.drawable.queue);
-	    bits[21] = BitmapFactory.decodeResource(getResources(), R.drawable.stack);
-	    bits[22] = BitmapFactory.decodeResource(getResources(), R.drawable.topbar);
-	    bits[23] = BitmapFactory.decodeResource(getResources(), R.drawable.heart1);
-	    bits[24] = BitmapFactory.decodeResource(getResources(), R.drawable.heart2);
+	    bits[23] = BitmapFactory.decodeResource(getResources(), R.drawable.queue);
+	    bits[24] = BitmapFactory.decodeResource(getResources(), R.drawable.stack);
+	    bits[25] = BitmapFactory.decodeResource(getResources(), R.drawable.topbar);
+	    bits[26] = BitmapFactory.decodeResource(getResources(), R.drawable.heart1);
+	    bits[27] = BitmapFactory.decodeResource(getResources(), R.drawable.heart2);
 	    mAesthetic2View.setBits(bits);
 
         System.gc();
