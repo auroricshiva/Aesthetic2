@@ -54,17 +54,22 @@ public class Aesthetic2Activity extends Activity {
 	    bits[4] = BitmapFactory.decodeResource(getResources(), R.drawable.wallblock);
 	    bits[5] = BitmapFactory.decodeResource(getResources(), R.drawable.woodblock);
 	    bits[6] = BitmapFactory.decodeResource(getResources(), R.drawable.plainblock);
-	    bits[7] = BitmapFactory.decodeResource(getResources(), R.drawable.montana2);
+	    bits[7] = BitmapFactory.decodeResource(getResources(), R.drawable.shuma2);
 	    bits[8] = BitmapFactory.decodeResource(getResources(), R.drawable.arrow1);
 	    bits[9] = BitmapFactory.decodeResource(getResources(), R.drawable.arrow2);
 	    bits[10] = BitmapFactory.decodeResource(getResources(), R.drawable.circle);
 	    bits[11] = BitmapFactory.decodeResource(getResources(), R.drawable.wallblocktall);
-        bits[14] = BitmapFactory.decodeResource(getResources(), R.drawable.rock);
-        bits[15] = BitmapFactory.decodeResource(getResources(), R.drawable.rock);
-        bits[16] = BitmapFactory.decodeResource(getResources(), R.drawable.rock);
+	    
+        bits[14] = BitmapFactory.decodeResource(getResources(), R.drawable.gemblue2);
+        bits[15] = BitmapFactory.decodeResource(getResources(), R.drawable.gemgreen2);
+        bits[16] = BitmapFactory.decodeResource(getResources(), R.drawable.gemorange2);
         bits[17] = BitmapFactory.decodeResource(getResources(), R.drawable.gemblue);
         bits[18] = BitmapFactory.decodeResource(getResources(), R.drawable.gemgreen);
 	    bits[19] = BitmapFactory.decodeResource(getResources(), R.drawable.gemorange);
+        bits[17] = BitmapFactory.decodeResource(getResources(), R.drawable.gemblue);
+        bits[18] = BitmapFactory.decodeResource(getResources(), R.drawable.gemgreen);
+	    bits[19] = BitmapFactory.decodeResource(getResources(), R.drawable.gemorange);
+	    
 	    bits[20] = BitmapFactory.decodeResource(getResources(), R.drawable.queue);
 	    bits[21] = BitmapFactory.decodeResource(getResources(), R.drawable.stack);
 	    bits[22] = BitmapFactory.decodeResource(getResources(), R.drawable.topbar);
