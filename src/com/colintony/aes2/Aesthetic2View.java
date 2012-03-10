@@ -51,7 +51,7 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
     private Bitmap character;
     private Bitmap[] land = new Bitmap[10];
     private Bitmap[] arrows = new Bitmap[3];
-    private Bitmap[] collectables = new Bitmap[6];
+    private Bitmap[] collectables = new Bitmap[9];
     private Bitmap[] bars = new Bitmap[5];
     private Bitmap shadow;
     
@@ -77,14 +77,14 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
             mapCollectables = level.getCollectableMap();
             state = 0;
             
-            lines[0][0] = 1;
-            lines[0][1] = 2;
-            lines[0][2] = 3;
-            lines[0][3] = 4;
-            lines[0][4] = 5;
-            lines[0][5] = 6;
-            lines[0][6] = 5;
-            lines[0][7] = 4;
+            lines[0][0] = 7;
+            lines[0][1] = 8;
+            lines[0][2] = 9;
+            lines[0][3] = 9;
+            lines[0][4] = 9;
+            lines[0][5] = 8;
+            lines[0][6] = 7;
+            lines[0][7] = 8;
             
             lines[1][0] = 1;
             lines[1][1] = 2;
@@ -148,13 +148,16 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
 			canvas.drawBitmap(bars[0],0,0, null);
 			canvas.drawBitmap(bars[1],0,0, null);
 			canvas.drawBitmap(bars[2],0,0, null);
-			canvas.drawBitmap(bars[4-Math.min(1,(life/3))],mCanvasWidth+2*bars[3].getWidth()-200,60, null);
-			canvas.drawBitmap(bars[4-Math.min(1,(life/2))],mCanvasWidth-200,60, null);
-			canvas.drawBitmap(bars[4-Math.min(1,(life/1))],mCanvasWidth-2*bars[3].getWidth()-200,60, null);
+			canvas.drawBitmap(bars[4-Math.min(1,(life/3))],mCanvasWidth+2*bars[3].getWidth()-220,60, null);
+			canvas.drawBitmap(bars[4-Math.min(1,(life/2))],mCanvasWidth-220,60, null);
+			canvas.drawBitmap(bars[4-Math.min(1,(life/1))],mCanvasWidth-2*bars[3].getWidth()-220,60, null);
 			canvas.restore();
 			
 			canvas.save();
 			canvas.scale(0.25f,0.25f,0,0);
+			for(int i = 0; i < 6; i++){
+				if(lines[0][i] != 0) canvas.drawBitmap(collectables[lines[0][i]-1],870+260*i,10, null);
+			}
 			for(int i = 0; i < 6; i++){
 				if(lines[1][i] != 0) canvas.drawBitmap(collectables[lines[1][i]-1],54,340+i*210, null);
 			}
@@ -446,11 +449,14 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
         collectables[3] = bits[17];
         collectables[4] = bits[18];
         collectables[5] = bits[19];
-        bars[0] = bits[20];
-        bars[1] = bits[21];
-        bars[2] = bits[22];
-        bars[3] = bits[23];
-        bars[4] = bits[24];
+        collectables[6] = bits[20];
+        collectables[7] = bits[21];
+        collectables[8] = bits[22];
+        bars[0] = bits[23];
+        bars[1] = bits[24];
+        bars[2] = bits[25];
+        bars[3] = bits[26];
+        bars[4] = bits[27];
         set = true;
     }
     

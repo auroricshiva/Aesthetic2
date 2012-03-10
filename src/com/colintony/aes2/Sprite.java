@@ -75,8 +75,8 @@ public class Sprite {
 		if(update%4 == 0){
 			currentFrame = (currentFrame + 1)% numFrames;
 			
-			sRectangle.left = currentFrame * spriteWidth;
-			sRectangle.right = sRectangle.left + spriteWidth;
+			sRectangle.left = currentFrame * spriteWidth+1;
+			sRectangle.right = sRectangle.left + spriteWidth-2;
 		}
 	}
 	
