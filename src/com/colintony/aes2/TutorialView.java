@@ -22,6 +22,7 @@ class TutorialView extends SurfaceView implements SurfaceHolder.Callback {
 	
 	private boolean levelEnd[] = new boolean[10];
 	private boolean won = false;
+	private boolean tut = true;
 	
     private int curLevel = 1;
 	private int state = 0;
@@ -54,6 +55,7 @@ class TutorialView extends SurfaceView implements SurfaceHolder.Callback {
     
     	/** images */
     private Bitmap BackgroundImage;
+    private Bitmap tutback;
     private Bitmap character;
     private Bitmap shadow;
     private Bitmap[] land = new Bitmap[10];
@@ -196,6 +198,12 @@ class TutorialView extends SurfaceView implements SurfaceHolder.Callback {
 					if(lines[3][i] != 0) canvas.drawBitmap(collectables[lines[3][i]-1],870+260*i-(int)(4*.66*endx),410-(int)(4*.66*endx), null);
 				}
 			}
+			canvas.restore();
+			
+			
+			canvas.save();
+			canvas.scale(0.66f,0.66f,0,0);
+			if (tut) canvas.drawBitmap(tutback,0,0, null);
 			canvas.restore();
         }
           
@@ -551,6 +559,9 @@ class TutorialView extends SurfaceView implements SurfaceHolder.Callback {
         bars[9] = bits[32];
         bars[10] = bits[33];
         bars[11] = bits[34];
+        
+        tutback = bits[35];
+        
         set = true;
     }
     

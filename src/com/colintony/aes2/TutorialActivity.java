@@ -79,6 +79,8 @@ public class TutorialActivity extends Activity {
 	    bits[32] = BitmapFactory.decodeResource(getResources(), R.drawable.check3);
 	    bits[33] = BitmapFactory.decodeResource(getResources(), R.drawable.undo);
 	    bits[34] = BitmapFactory.decodeResource(getResources(), R.drawable.undo2);
+	    
+	    bits[35] = BitmapFactory.decodeResource(getResources(), R.drawable.tutback);
 	    mTutorialView.setBits(bits);
 
         System.gc();
