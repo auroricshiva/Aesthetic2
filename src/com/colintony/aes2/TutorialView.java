@@ -94,7 +94,6 @@ class TutorialView extends SurfaceView implements SurfaceHolder.Callback {
         public TutorialThread(SurfaceHolder surfaceHolder, Context context, Handler handler) {
             // get handles to some important objects
             SurfaceHolder = surfaceHolder;
-            level.setLevel(0);
             mapLevel = level.getLevelMap();
             mapCollectables = level.getCollectableMap();
             state = 0;

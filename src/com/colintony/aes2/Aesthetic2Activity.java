@@ -55,7 +55,6 @@ public class Aesthetic2Activity extends Activity {
             bits[8] = BitmapFactory.decodeResource(getResources(), R.drawable.arrow1);
             bits[9] = BitmapFactory.decodeResource(getResources(), R.drawable.arrow2);
             bits[10] = BitmapFactory.decodeResource(getResources(), R.drawable.circle);
-            bits[11] = BitmapFactory.decodeResource(getResources(), R.drawable.wallblocktall);
             
             bits[13] = BitmapFactory.decodeResource(getResources(), R.drawable.shadow);
             bits[14] = BitmapFactory.decodeResource(getResources(), R.drawable.gemblue2);
@@ -93,6 +92,7 @@ public class Aesthetic2Activity extends Activity {
     @Override
     protected void onPause() {
         super.onPause();
+        finish();
         System.gc();
     }
 
@@ -103,9 +103,9 @@ public class Aesthetic2Activity extends Activity {
             if(bits[i]!=null)
                 bits[i].recycle();
         bits = null;
-        System.gc();
-
-        mAesthetic2View.getThread().setRunning(false); // pause game when Activity pauses
+//        System.gc();
+//
+//        mAesthetic2View.getThread().setRunning(false); // pause game when Activity pauses
         System.gc();
     }
 
