@@ -127,12 +127,20 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
             
             canvas.save();
             canvas.scale(0.6f,0.6f,0,mCanvasHeight);
-            if(!levelEnd[curLevel]) drawCollectables(mapCollectables, canvas);
+            if(!levelEnd[curLevel]) drawCollectables(mapCollectables, canvas, 0);
+            if(!levelEnd[curLevel] && row > 0) drawCollectables(mapCollectables, canvas, 1);
+            if(!levelEnd[curLevel] && row > 1) drawCollectables(mapCollectables, canvas, 2);
             canvas.restore();
             
 	        canvas.scale(0.75f,0.75f,0,0);
             csprite.draw(canvas, 200+(int)endx, 180+rowy-Math.round(jHeight));
 			canvas.restore();
+			
+            canvas.save();
+            canvas.scale(0.6f,0.6f,0,mCanvasHeight);
+            if(!levelEnd[curLevel] && !(row > 0)) drawCollectables(mapCollectables, canvas, 1);
+            if(!levelEnd[curLevel] && !(row > 1)) drawCollectables(mapCollectables, canvas, 2);
+            canvas.restore();
 			
 			canvas.save();
 			canvas.scale(0.25f,0.25f,0,0);
@@ -199,18 +207,15 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
         	}
 		}
         
-        private void drawCollectables(int[][] mapCollect, Canvas canvas)
+        private void drawCollectables(int[][] mapCollect, Canvas canvas, int row)
         {
            for(int i = 0; i < mapCollect.length; i++)
            {
-               for(int j = 0; j < mapCollect[i].length; j++)
-               {
-                   if(mapCollect[i][j] > 0){
-                	   canvas.save();
-                   	   canvas.scale(.5f,.5f,0,0);
-                       canvas.drawBitmap(collectables[mapCollect[i][j]-1], 2*(-mx/0.6f+151*i), 2*(my+120*j-60)+16f*(float)Math.cos(cont/10f), null);
-                       canvas.restore();
-                   }
+               if(mapCollect[i][row] > 0){
+            	   canvas.save();
+               	   canvas.scale(.5f,.5f,0,0);
+                   canvas.drawBitmap(collectables[mapCollect[i][row]-1], 2*(-mx/0.6f+151*i), 2*(my+120*row-60)+16f*(float)Math.cos(cont/10f), null);
+                   canvas.restore();
                }
            }
         }
