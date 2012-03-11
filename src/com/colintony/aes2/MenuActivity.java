@@ -54,4 +54,14 @@ public class MenuActivity extends Activity
     public void onPause(){ 
 	    super.onPause();
     }
+
+    @Override
+    public void onResume(){ 
+        saves = getSharedPreferences(PREFS_NAME, 0);
+        max = saves.getInt("max", 0);
+        
+        TextView v1 = (TextView) findViewById(R.id.textv1);
+        v1.setText("Max level: " + max);
+	    super.onResume();
+    }
 }
