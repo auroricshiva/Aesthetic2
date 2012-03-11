@@ -12,6 +12,8 @@ import android.widget.Button;
 public class MenuActivity extends Activity
 {
 	public static final String PREFS_NAME = "Aes2Preferences";
+	static SharedPreferences saves;
+
 	int max;
 	
     /** Called when the activity is first created. */
@@ -22,7 +24,7 @@ public class MenuActivity extends Activity
         setContentView(R.layout.main);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         
-        SharedPreferences saves = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        saves = getSharedPreferences(PREFS_NAME, 0);
         max = saves.getInt("max", 0);
         
         Button StartGameButton = (Button)findViewById(R.id.StartGame);
@@ -45,13 +47,7 @@ public class MenuActivity extends Activity
     }
     
     @Override
-    public void onPause(){
-	
-	    SharedPreferences saves = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
-	    SharedPreferences.Editor editor = saves.edit();
-	    editor.putInt("max", max);
-	    editor.commit();
-	    
+    public void onPause(){ 
 	    super.onPause();
     }
 }

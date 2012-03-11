@@ -480,7 +480,8 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
         // create thread only; it's started in surfaceCreated()
         thread = new Aesthetic2Thread(holder, context, new Handler() {
         });
-
+        
+        saves = context.getSharedPreferences(PREFS_NAME, 0);
         max = saves.getInt("max", 0);
         
         setFocusable(true); // make sure we get key events
