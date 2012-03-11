@@ -44,7 +44,7 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
 	private int mCanvasWidth = 1000;
     
     int mapLevel[][], mapCollectables[][];
-    int lines[][] = new int [4][8];
+    int[] pattern, curPattern;
     Levels level = new Levels();
     int pointer = 0;
     int row = 0, col = 3;
@@ -84,24 +84,9 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
             level.setLevel(0);
             mapLevel = level.getLevelMap();
             mapCollectables = level.getCollectableMap();
+            pattern = level.getPattern();
+            curPattern = level.getCurPattern();
             state = 0;
-            
-            lines[0][0] = 7;
-            lines[0][1] = 8;
-            lines[0][2] = 9;
-            lines[0][3] = 9;
-            lines[0][4] = 9;
-            lines[0][5] = 9;
-
-            
-
-            lines[3][0] = 7;
-            lines[3][1] = 8;
-            lines[3][2] = 9;
-            lines[3][3] = 9;
-            lines[3][4] = 9;
-            lines[3][5] = 0;
-
             pointer = 5;
             
         }
@@ -139,14 +124,15 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
             canvas.scale(jScale, jScale, shadow.getWidth()/2, shadow.getHeight()*3/4);
             canvas.drawBitmap(shadow, (float)((150+(int)endx)/jScale), (float)(100+rowy*3/4)/jScale, null);
             canvas.restore();
+            
+            canvas.save();
+            canvas.scale(0.6f,0.6f,0,mCanvasHeight);
+            if(!levelEnd[curLevel]) drawCollectables(mapCollectables, canvas);
+            canvas.restore();
+            
 	        canvas.scale(0.75f,0.75f,0,0);
             csprite.draw(canvas, 200+(int)endx, 180+rowy-Math.round(jHeight));
 			canvas.restore();
-			
-			canvas.save();
-	        canvas.scale(0.6f,0.6f,0,mCanvasHeight);
-			if(!levelEnd[curLevel]) drawCollectables(mapCollectables, canvas);
-	        canvas.restore();
 			
 			canvas.save();
 			canvas.scale(0.25f,0.25f,0,0);
@@ -181,9 +167,8 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
 			
 			canvas.save();
 			canvas.scale(0.25f,0.25f,0,0);
-//			System.out.println(lineQueue.length + " " + lineStack.length + " " + lineQueue.toString() + lineStack.toString());
 			for(int i = 0; i < 6; i++){
-				if(lines[0][i] != 0) canvas.drawBitmap(collectables[lines[0][i]-1],870+260*i-(int)(4*.66*endx),10-(int)(4*.66*endx), null);
+				if(pattern[i] != 0) canvas.drawBitmap(collectables[pattern[i]-1],870+260*i-(int)(4*.66*endx),10-(int)(4*.66*endx), null);
 			}
 			for(int i = 0; i < gemQueue.size(); i++){
 				if(gemQueue.get(i) != 0) canvas.drawBitmap(collectables[gemQueue.get(i)-1],54+(int)(-4*.66*endx+0),340+(gemQueue.size()-i-1)*210, null);
@@ -193,7 +178,7 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
 			}
 			if(levelEnd[curLevel]){
 				for(int i = 0; i < 6; i++){
-					if(lines[3][i] != 0) canvas.drawBitmap(collectables[lines[3][i]-1],870+260*i-(int)(4*.66*endx),410-(int)(4*.66*endx), null);
+					if(curPattern[i] != 0) canvas.drawBitmap(collectables[curPattern[i]-1],870+260*i-(int)(4*.66*endx),410-(int)(4*.66*endx), null);
 				}
 			}
 			canvas.restore();
@@ -353,7 +338,7 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
 	            //win check
 	            won = true;
 	            for(int i = 0; i<6; i++){
-	            	if(lines[3][i]%3 != lines[0][i]%3 || lines[3][i] == 0) won = false;
+	            	if(curPattern[i]%3 != pattern[i]%3 || curPattern[i] == 0) won = false;
 	            }
             }
             
@@ -600,7 +585,7 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
 	            if(pickx > mCanvasWidth/8 && pickx < mCanvasWidth/4)
 	            {
 	            	if( pointer < 6 && !gemQueue.isEmpty()){
-	            		lines[3][pointer] = gemQueue.removeFirst();		      
+	            		curPattern[pointer] = gemQueue.removeFirst();		      
 		            	pointer++;
 		            	click = 1;
 	            	}
@@ -608,7 +593,7 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
 	            else if(pickx > mCanvasWidth/4 && pickx < mCanvasWidth/3)
 	            {
 	            	if( pointer < 6 && !gemStack.isEmpty()){
-		            	lines[3][pointer] = gemStack.pop();
+		            	curPattern[pointer] = gemStack.pop();
 		            	pointer++;
 		            	click = 2;
 	            	}
@@ -616,9 +601,9 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
 	            else if(pickx > mCanvasWidth/4*3 && pickx < mCanvasWidth/8*7 && picky > mCanvasHeight/3*2)
 	            {
 	            	if(pointer>0){
-		            	if(lines[3][pointer-1] < 4) gemQueue.addFirst(lines[3][pointer-1] );
-		            	else if( lines[3][pointer-1] < 7) gemStack.push(lines[3][pointer-1] );
-		            	lines[3][pointer-1] = 0;
+		            	if(curPattern[pointer-1] < 4) gemQueue.addFirst(curPattern[pointer-1] );
+		            	else if( curPattern[pointer-1] < 7) gemStack.push(curPattern[pointer-1] );
+		            	curPattern[pointer-1] = 0;
 		            	pointer--;
 	            		click = 3;	            		
 	            	}
@@ -630,7 +615,7 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
 	            		curLevel++;
 	            		won = false;
 	            		pointer = 0;
-	            		lines[3] = new int[8];
+	            		curPattern = new int[6];
 	            		life = 3;
 	            		while(!gemStack.isEmpty()) gemStack.pop();
 	            		while(!gemQueue.isEmpty()) gemQueue.remove();
