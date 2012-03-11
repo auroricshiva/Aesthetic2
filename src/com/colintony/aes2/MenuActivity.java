@@ -2,6 +2,7 @@ package com.colintony.aes2;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.View;
@@ -10,12 +11,19 @@ import android.widget.Button;
 
 public class MenuActivity extends Activity
 {
+	public static final String PREFS_NAME = "Aes2Preferences";
+	int max;
+	
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
+    	
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        
+        SharedPreferences saves = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        max = saves.getInt("max", 0);
         
         Button StartGameButton = (Button)findViewById(R.id.StartGame);
         StartGameButton.setOnClickListener(new OnClickListener() {
@@ -34,5 +42,16 @@ public class MenuActivity extends Activity
                 startActivity(TutorialIntent);
             }
         });
+    }
+    
+    @Override
+    public void onPause(){
+	
+	    SharedPreferences saves = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+	    SharedPreferences.Editor editor = saves.edit();
+	    editor.putInt("max", max);
+	    editor.commit();
+	    
+	    super.onPause();
     }
 }

@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.Stack;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -17,6 +18,11 @@ import android.view.SurfaceView;
 
 
 class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
+	
+	public static final String PREFS_NAME = "Aes2Preferences";
+	static SharedPreferences saves;
+	SharedPreferences.Editor editor;
+	private int max;
 	
 	Canvas c;
 	Paint p = new Paint();
@@ -458,6 +464,8 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
         thread = new Aesthetic2Thread(holder, context, new Handler() {
         });
 
+        max = saves.getInt("max", 0);
+        
         setFocusable(true); // make sure we get key events
     }
 
@@ -698,6 +706,12 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
 		            		col = -9;
 		            		while(!gemStack.isEmpty()) gemStack.pop();
 		            		while(!gemQueue.isEmpty()) gemQueue.remove();
+		            		
+		            		if( curLevel > max ){
+		            			max = curLevel;
+		            		    editor.putInt("max", max);
+		            		    editor.commit();
+		            		}
 		            	}
 		            }
 	            }
