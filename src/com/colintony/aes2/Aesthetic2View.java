@@ -225,13 +225,13 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
         
         private void drawOldLand(int[][] map, Canvas canvas)
         {
-            for(int i = 0; i < map.length; i++)
+            for(int i = map.length - 9; i < map.length; i++)
             {
                 canvas.drawBitmap(land[2], -mx/0.6f+151*(i+levelWidth*(curLevel-2)), my+60*4, null);
                 for(int j = 0; j < map[i].length; j++)
                 {
                     if(map[i][j] != 0)
-                        canvas.drawBitmap(land[map[i][j]-1], -mx/0.6f+151*(i+levelWidth*(curLevel-2)), my+60*(2*i+1)-120, null);
+                        canvas.drawBitmap(land[map[i][j]-1], -mx/0.6f+151*(i+levelWidth*(curLevel)), my+60*(2*i+1)-120, null);
                 }
             }
         }
@@ -288,7 +288,7 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
 	            	}
 	            	else csprite.setEnd();
 
-	            	if(mx < 151*(mapLevel.length-9)*0.6*(curLevel))
+	            	if(mx < 151*(mapLevel.length*curLevel-9)*0.6)
 	            	{
 	            	    mx+=5;
 	            	    colx+=5;
@@ -324,7 +324,7 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
                 }
                 
                 //rock collision
-                if(jump != 1 && col == rock && colx < 50 && life > 0 && hit > 99){
+                if(jump != 1 && col == (rock-8*(curLevel-1))%50 && colx < 50 && life > 0 && hit > 99){
                 	life--;
                 	hit = 0;
                 }
@@ -662,6 +662,7 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
 		            	if(won) {
 		            		click = 4;
 		            		oldMapL = mapLevel;
+		            		System.out.println(oldMapL.length + " " + oldMapL[0].length);
 		            		level = new Levels(++curLevel);
 		                    mapLevel = level.getLevelMap();
 		                    mapCollectables = level.getCollectableMap();
