@@ -612,7 +612,7 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
 	            		click = 3;	            		
 	            	}
 	            }
-	            else if(pickx > mCanvasWidth/2 && pickx < mCanvasWidth/5*3 && picky > mCanvasHeight/3*2)
+	            else if(pickx > mCanvasWidth/2 && pickx < mCanvasWidth/5*3 && picky > mCanvasHeight/2)
 	            {
 	            	if(won) {
 	            		click = 4;

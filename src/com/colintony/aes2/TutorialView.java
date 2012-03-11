@@ -434,6 +434,7 @@ class TutorialView extends SurfaceView implements SurfaceHolder.Callback {
 					canvas.drawText("getting the patterns right may get", mCanvasWidth/2f/.66f+20, 200f+180, paint);
 					canvas.drawText("tricky.  Hope you enjoy the game", mCanvasWidth/2f/.66f+20, 200f+240, paint);
 					canvas.drawText("and feel free to give us feedback.", mCanvasWidth/2f/.66f+20, 200f+300, paint);
+					canvas.drawText("Oh, and avoid rocks.", mCanvasWidth/2f/.66f+20, 200f+360, paint);
 					
 					paint.setTextSize(30);
 					canvas.drawText("touch anywhere to end this tutorial", mCanvasWidth/2f/.66f+20, 200f+400, paint);//
@@ -950,7 +951,7 @@ class TutorialView extends SurfaceView implements SurfaceHolder.Callback {
 			            	click = 2;
 		            	}
 		            }
-		            else if(pickx > mCanvasWidth/4*3 && pickx < mCanvasWidth/8*7 && picky > mCanvasHeight/3*2)
+		            else if(pickx > mCanvasWidth/4*3 && pickx < mCanvasWidth/8*7 && picky > mCanvasHeight/5*3)
 		            {
 		            	if(pointer>0){
 			            	if(lines[3][pointer-1] < 4) gemQueue.addFirst(lines[3][pointer-1] );
@@ -960,7 +961,7 @@ class TutorialView extends SurfaceView implements SurfaceHolder.Callback {
 		            		click = 3;	            		
 		            	}
 		            }
-		            else if(pickx > mCanvasWidth/2 && pickx < mCanvasWidth/5*3 && picky > mCanvasHeight/3*2)
+		            else if(pickx > mCanvasWidth/2 && pickx < mCanvasWidth/5*3 && picky > mCanvasHeight/5*3)
 		            {
 		            	if(won) {
 		            		click = 4;
