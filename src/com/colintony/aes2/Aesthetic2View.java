@@ -6,6 +6,7 @@ import java.util.Stack;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.os.Handler;
 import android.util.AttributeSet;
 import android.view.KeyEvent;
@@ -18,6 +19,7 @@ import android.view.SurfaceView;
 class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
 	
 	Canvas c;
+	Paint p = new Paint();
 	Boolean set = false;
 	
 	private boolean levelEnd;
@@ -31,6 +33,7 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
 	int life = 3;
 	final static private int MAX_SIZE = 6;
 	private int levelWidth;
+	private int pAlpha = 1;
 
 	private float mx;
 	private float my;
@@ -60,6 +63,7 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
     private Bitmap character;
     private Bitmap shadow;
     private Bitmap rocks;
+    private Bitmap gameover;
     private Bitmap[] land = new Bitmap[10];
     private Bitmap[] arrows = new Bitmap[3];
     private Bitmap[] collectables = new Bitmap[9];
@@ -201,6 +205,11 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
 				}
 			}
 			canvas.restore();
+			
+			if(life == 0)
+			{
+			    drawGO(canvas);
+			}
         }
           
         private void drawRocks(int rock, Canvas canvas){
@@ -264,7 +273,16 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
                }
            }
         }
-
+        
+        private void drawGO(Canvas canvas)
+        {
+            canvas.save();
+            if(pAlpha < 255)
+                pAlpha += 2;
+            p.setAlpha(pAlpha);
+            canvas.drawBitmap(gameover, -50, 20, p);
+            canvas.restore();
+        }
 
 		/***
          * Updates the game each time it is called
@@ -315,7 +333,7 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
                 
                 //rocks
                 if((-mx/0.6f+151*rock) < -200) rock +=10+20*Math.random();
-                if(rock%58 > 50) rock+=8+5*Math.random();
+                if(rock%58 > 49) rock+=8+5*Math.random();
                 
                 //collision
                 if(colx > 90.6 && col < mapLevel.length-9)
@@ -389,6 +407,10 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
 	            	if(curPattern[i]%3 != pattern[i]%3 || (curPattern[i] == 0 && pattern[i] != 0))
 	            	    won = false;
 	            }
+            }
+            else
+            {
+                //game over
             }
             
         }
@@ -562,6 +584,7 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
         arrows[0] = bits[8];
         arrows[1] = bits[9];
         arrows[2] = bits[10];
+        gameover = bits[11];
         shadow = bits[13];
         collectables[0] = bits[14];
         collectables[1] = bits[15];
@@ -678,8 +701,9 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
 		            	}
 		            }
 	            }
-	            else{
-		            	//die
+	            else//die, return to main menu
+	            {
+	                
 		        }
             }
 		}
