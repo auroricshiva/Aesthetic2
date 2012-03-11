@@ -258,7 +258,7 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
             double elapsed = (now - mLastTime);
             
             //Update the default gameplay
-            if(state == 0)
+            if(state == 0 && life > 0)
             {
 	            if(elapsed > 7)
 	            {
@@ -588,69 +588,74 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
 			point = event.getPointerId(0);
 			pickx = (int)event.getX(point);
             picky = (int)event.getY(point);
-             
-            if(!levelEnd){
-	            if(pickx > mCanvasWidth - 70 )
-	            {
-	                if(picky < mCanvasHeight / 3)
-	                {
-	                    if(row > 0)
-	                        row--;
-	                }
-	                else if(picky < mCanvasHeight * 2 / 3)
-	                {
-	                    if(jump != 1)
-	                    {
-	                        jump = 1;
-	                        jUpDown = 1;
-	                    }
-	                }
-	                else if(row < 2)
-	                    row++;
+            
+            if(life > 0){
+	            if(!levelEnd){
+		            if(pickx > mCanvasWidth - 70 )
+		            {
+		                if(picky < mCanvasHeight / 3)
+		                {
+		                    if(row > 0)
+		                        row--;
+		                }
+		                else if(picky < mCanvasHeight * 2 / 3)
+		                {
+		                    if(jump != 1)
+		                    {
+		                        jump = 1;
+		                        jUpDown = 1;
+		                    }
+		                }
+		                else if(row < 2)
+		                    row++;
+		            }
 	            }
-            }
-            else if (endx == -200){
-	            if(pickx > mCanvasWidth/8 && pickx < mCanvasWidth/4)
-	            {
-	            	if( pointer < 6 && !gemQueue.isEmpty()){
-	            		curPattern[pointer] = gemQueue.removeFirst();		      
-		            	pointer++;
-		            	click = 1;
-	            	}
+	            else if (endx == -200){
+		            if(pickx > mCanvasWidth/8 && pickx < mCanvasWidth/4)
+		            {
+		            	if( pointer < 6 && !gemQueue.isEmpty()){
+		            		curPattern[pointer] = gemQueue.removeFirst();		      
+			            	pointer++;
+			            	click = 1;
+		            	}
+		            }
+		            else if(pickx > mCanvasWidth/4 && pickx < mCanvasWidth/3)
+		            {
+		            	if( pointer < 6 && !gemStack.isEmpty()){
+			            	curPattern[pointer] = gemStack.pop();
+			            	pointer++;
+			            	click = 2;
+		            	}
+		            }
+		            else if(pickx > mCanvasWidth/4*3 && pickx < mCanvasWidth/8*7 && picky > mCanvasHeight/5*3)
+		            {
+		            	if(pointer>0){
+			            	if(curPattern[pointer-1] < 4) gemQueue.addFirst(curPattern[pointer-1] );
+			            	else if( curPattern[pointer-1] < 7) gemStack.push(curPattern[pointer-1] );
+			            	curPattern[pointer-1] = 0;
+			            	pointer--;
+		            		click = 3;	            		
+		            	}
+		            }
+		            else if(pickx > mCanvasWidth/2 && pickx < mCanvasWidth/5*3 && picky > mCanvasHeight/5*3)
+		            {
+		            	if(won) {
+		            		click = 4;
+		            		level = new Levels(++curLevel);
+		                    mapLevel = level.getLevelMap();
+		                    mapCollectables = level.getCollectableMap();
+		                    pattern = level.getPattern();
+		            		won = false;
+		            		pointer = 0;
+		            		curPattern = new int[6];
+		            		levelEnd = false;
+		            		while(!gemStack.isEmpty()) gemStack.pop();
+		            		while(!gemQueue.isEmpty()) gemQueue.remove();
+		            	}
+		            }
 	            }
-	            else if(pickx > mCanvasWidth/4 && pickx < mCanvasWidth/3)
-	            {
-	            	if( pointer < 6 && !gemStack.isEmpty()){
-		            	curPattern[pointer] = gemStack.pop();
-		            	pointer++;
-		            	click = 2;
-	            	}
-	            }
-	            else if(pickx > mCanvasWidth/4*3 && pickx < mCanvasWidth/8*7 && picky > mCanvasHeight/5*3)
-	            {
-	            	if(pointer>0){
-		            	if(curPattern[pointer-1] < 4) gemQueue.addFirst(curPattern[pointer-1] );
-		            	else if( curPattern[pointer-1] < 7) gemStack.push(curPattern[pointer-1] );
-		            	curPattern[pointer-1] = 0;
-		            	pointer--;
-	            		click = 3;	            		
-	            	}
-	            }
-	            else if(pickx > mCanvasWidth/2 && pickx < mCanvasWidth/5*3 && picky > mCanvasHeight/5*3)
-	            {
-	            	if(won) {
-	            		click = 4;
-	            		level = new Levels(++curLevel);
-	                    mapLevel = level.getLevelMap();
-	                    mapCollectables = level.getCollectableMap();
-	                    pattern = level.getPattern();
-	            		won = false;
-	            		pointer = 0;
-	            		curPattern = new int[6];
-	            		levelEnd = false;
-	            		while(!gemStack.isEmpty()) gemStack.pop();
-	            		while(!gemQueue.isEmpty()) gemQueue.remove();
-	            	}
+	            else{
+	            	//die
 	            }
             }
 		}
