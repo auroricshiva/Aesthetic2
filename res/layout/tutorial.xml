@@ -8,7 +8,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
     
-    <com.colintony.aes2.Aesthetic2View
+    <com.colintony.aes2.TutorialView
       android:id="@+id/aes2tutorial"
       android:layout_width="fill_parent"
       android:layout_height="fill_parent"/>

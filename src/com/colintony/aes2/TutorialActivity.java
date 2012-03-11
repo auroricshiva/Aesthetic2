@@ -32,7 +32,7 @@ public class TutorialActivity extends Activity {
         super.onCreate(savedInstanceState);
         
         // tell system to use the layout defined in our XML file
-        setContentView(R.layout.aes2activity);
+        setContentView(R.layout.tutorial);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         Window window = getWindow();  
         window.addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
