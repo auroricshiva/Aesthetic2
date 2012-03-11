@@ -6,6 +6,10 @@ import java.util.Stack;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Typeface;
+import android.graphics.Paint.Align;
 import android.os.Handler;
 import android.util.AttributeSet;
 import android.view.KeyEvent;
@@ -23,6 +27,7 @@ class TutorialView extends SurfaceView implements SurfaceHolder.Callback {
 	private boolean levelEnd[] = new boolean[10];
 	private boolean won = false;
 	private boolean tut = true;
+	private int tutnum = 0;
 	
     private int curLevel = 1;
 	private int state = 0;
@@ -31,7 +36,7 @@ class TutorialView extends SurfaceView implements SurfaceHolder.Callback {
 	private int click = 0;
 	int life = 3;
 	final static private int MAX_SIZE = 6;
-
+	
 	private float mx;
 	private float my;
     private float jHeight = 0, jScale = 0.75f;
@@ -203,7 +208,49 @@ class TutorialView extends SurfaceView implements SurfaceHolder.Callback {
 			
 			canvas.save();
 			canvas.scale(0.66f,0.66f,0,0);
-			if (tut) canvas.drawBitmap(tutback,0,0, null);
+			if (tut) {
+				canvas.drawBitmap(tutback,0,0, null);
+				Paint paint = new Paint();
+				paint.setColor(Color.WHITE);
+	            paint.setStyle(Paint.Style.FILL);
+	            paint.setTextSize(60);
+	            paint.setAlpha(1000);
+	            paint.setTextAlign(Align.CENTER);
+	            paint.setTypeface(Typeface.SANS_SERIF);
+	            
+				if(tutnum == 0){
+					paint.setTextSize(70);
+					canvas.drawText("Aestuu's Gem Sorting", mCanvasWidth/2f/.66f+20, 200f, paint);
+					
+					paint.setTextSize(60);
+					canvas.drawText("Created by Colin and Tony", mCanvasWidth/2f/.66f+20, 200f+80, paint);
+					canvas.drawText("for Aesthetic Computing", mCanvasWidth/2f/.66f+20, 200f+150, paint);
+					canvas.drawText("project 2", mCanvasWidth/2f/.66f+20, 200f+220, paint);
+					canvas.drawText("at the Univeristy of Florida", mCanvasWidth/2f/.66f+20, 200f+290, paint);
+					
+					paint.setTextSize(30);
+					canvas.drawText("touch anywhere to continue", mCanvasWidth/2f/.66f+20, 200f+400, paint);
+		    		
+				}
+				if(tutnum == 1){
+					paint.setTextSize(70);
+					canvas.drawText("Goal of this project:", mCanvasWidth/2f/.66f+20, 200f, paint);
+					
+					paint.setTextSize(40);
+					canvas.drawText("To create a fun way to teach", mCanvasWidth/2f/.66f+20, 200f+80, paint);
+					canvas.drawText("the idea of stacks and queues", mCanvasWidth/2f/.66f+20, 200f+140, paint);
+					canvas.drawText("to non computer science majors", mCanvasWidth/2f/.66f+20, 200f+200, paint);
+					canvas.drawText("and leave a fun game for even those", mCanvasWidth/2f/.66f+20, 200f+260, paint);
+					canvas.drawText("who don't care of data structures.", mCanvasWidth/2f/.66f+20, 200f+320, paint);
+					
+					paint.setTextSize(30);
+					canvas.drawText("touch anywhere to continue", mCanvasWidth/2f/.66f+20, 200f+400, paint);
+		    		
+				}
+				if(tutnum == 2){
+					//Aestuu, one of Cthulhu's many minions, has been sent to the peaceful Planet Cute to gather assorted gems to power his Master's stacks and queues!  Guide Aestuu in completing his mission to appease the great old one.
+				}
+			}
 			canvas.restore();
         }
           
@@ -264,7 +311,7 @@ class TutorialView extends SurfaceView implements SurfaceHolder.Callback {
             double elapsed = (now - mLastTime);
             
             //Update the default gameplay
-            if(state == 0)
+            if(state == 0 && !tut)
             {
 	            if(elapsed > 7)
 	            {
@@ -586,66 +633,72 @@ class TutorialView extends SurfaceView implements SurfaceHolder.Callback {
 			point = event.getPointerId(0);
 			pickx = (int)event.getX(point);
             picky = (int)event.getY(point);
-             
-            if(!levelEnd[curLevel]){
-	            if(pickx > mCanvasWidth - 70 )
-	            {
-	                if(picky < mCanvasHeight / 3)
-	                {
-	                    if(row > 0)
-	                        row--;
-	                }
-	                else if(picky < mCanvasHeight * 2 / 3)
-	                {
-	                    if(jump != 1)
-	                    {
-	                        jump = 1;
-	                        jUpDown = 1;
-	                    }
-	                }
-	                else if(row < 2)
-	                    row++;
+            
+            if(tut){
+      	    	tutnum++;
+      	    	if (tutnum == 4) tut = false;
+			}
+            else{
+	            if(!levelEnd[curLevel]){
+		            if(pickx > mCanvasWidth - 70 )
+		            {
+		                if(picky < mCanvasHeight / 3)
+		                {
+		                    if(row > 0)
+		                        row--;
+		                }
+		                else if(picky < mCanvasHeight * 2 / 3)
+		                {
+		                    if(jump != 1)
+		                    {
+		                        jump = 1;
+		                        jUpDown = 1;
+		                    }
+		                }
+		                else if(row < 2)
+		                    row++;
+		            }
 	            }
-            }
-            else if (endx == -200){
-	            if(pickx > mCanvasWidth/8 && pickx < mCanvasWidth/4)
-	            {
-	            	if( pointer < 6 && !gemQueue.isEmpty()){
-	            		lines[3][pointer] = gemQueue.removeFirst();		      
-		            	pointer++;
-		            	click = 1;
-	            	}
-	            }
-	            else if(pickx > mCanvasWidth/4 && pickx < mCanvasWidth/3)
-	            {
-	            	if( pointer < 6 && !gemStack.isEmpty()){
-		            	lines[3][pointer] = gemStack.pop();
-		            	pointer++;
-		            	click = 2;
-	            	}
-	            }
-	            else if(pickx > mCanvasWidth/4*3 && pickx < mCanvasWidth/8*7 && picky > mCanvasHeight/3*2)
-	            {
-	            	if(pointer>0){
-		            	if(lines[3][pointer-1] < 4) gemQueue.addFirst(lines[3][pointer-1] );
-		            	else if( lines[3][pointer-1] < 7) gemStack.push(lines[3][pointer-1] );
-		            	lines[3][pointer-1] = 0;
-		            	pointer--;
-	            		click = 3;	            		
-	            	}
-	            }
-	            else if(pickx > mCanvasWidth/2 && pickx < mCanvasWidth/5*3 && picky > mCanvasHeight/3*2)
-	            {
-	            	if(won) {
-	            		click = 4;
-	            		curLevel++;
-	            		won = false;
-	            		pointer = 0;
-	            		lines[3] = new int[8];
-	            		life = 3;
-	            		while(!gemStack.isEmpty()) gemStack.pop();
-	            		while(!gemQueue.isEmpty()) gemQueue.remove();
-	            	}
+	            else if (endx == -200){
+		            if(pickx > mCanvasWidth/8 && pickx < mCanvasWidth/4)
+		            {
+		            	if( pointer < 6 && !gemQueue.isEmpty()){
+		            		lines[3][pointer] = gemQueue.removeFirst();		      
+			            	pointer++;
+			            	click = 1;
+		            	}
+		            }
+		            else if(pickx > mCanvasWidth/4 && pickx < mCanvasWidth/3)
+		            {
+		            	if( pointer < 6 && !gemStack.isEmpty()){
+			            	lines[3][pointer] = gemStack.pop();
+			            	pointer++;
+			            	click = 2;
+		            	}
+		            }
+		            else if(pickx > mCanvasWidth/4*3 && pickx < mCanvasWidth/8*7 && picky > mCanvasHeight/3*2)
+		            {
+		            	if(pointer>0){
+			            	if(lines[3][pointer-1] < 4) gemQueue.addFirst(lines[3][pointer-1] );
+			            	else if( lines[3][pointer-1] < 7) gemStack.push(lines[3][pointer-1] );
+			            	lines[3][pointer-1] = 0;
+			            	pointer--;
+		            		click = 3;	            		
+		            	}
+		            }
+		            else if(pickx > mCanvasWidth/2 && pickx < mCanvasWidth/5*3 && picky > mCanvasHeight/3*2)
+		            {
+		            	if(won) {
+		            		click = 4;
+		            		curLevel++;
+		            		won = false;
+		            		pointer = 0;
+		            		lines[3] = new int[8];
+		            		life = 3;
+		            		while(!gemStack.isEmpty()) gemStack.pop();
+		            		while(!gemQueue.isEmpty()) gemQueue.remove();
+		            	}
+		            }
 	            }
             }
 		}
