@@ -12,6 +12,8 @@
             </intent-filter>
         </activity>
         <activity android:name="Aesthetic2Activity" android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen">
+		</activity>
+        <activity android:name="TutorialActivity" android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen">
         </activity>
     </application>
 </manifest>

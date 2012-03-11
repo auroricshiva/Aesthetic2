@@ -12,14 +12,14 @@ import android.view.WindowManager;
 import android.content.res.Configuration;
 
 /**
- * This is a simple Aesthetic2 activity that houses a single Aesthetic2View.
+ * This is a simple Tutorial activity that houses a single TutorialView.
  */
-public class Aesthetic2Activity extends Activity {
+public class TutorialActivity extends Activity {
 
 	private Bitmap[] bits;
 	
     /** A handle to the View in which the game is running. */
-    private Aesthetic2View mAesthetic2View;
+    private TutorialView mTutorialView;
 
     /**
      * Invoked when the Activity is created.
@@ -32,13 +32,13 @@ public class Aesthetic2Activity extends Activity {
         super.onCreate(savedInstanceState);
         
         // tell system to use the layout defined in our XML file
-        setContentView(R.layout.aes2activity);
+        setContentView(R.layout.tutorial);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         Window window = getWindow();  
         window.addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
 
-        // get handles to the Aesthetic2View from XML, and its Aesthetic2Thread
-        mAesthetic2View = (Aesthetic2View) findViewById(R.id.aes2activity);
+        // get handles to the TutorialView from XML, and its TutorialThread
+        mTutorialView = (TutorialView) findViewById(R.id.aes2tutorial);
         
 
 
@@ -79,7 +79,7 @@ public class Aesthetic2Activity extends Activity {
 	    bits[32] = BitmapFactory.decodeResource(getResources(), R.drawable.check3);
 	    bits[33] = BitmapFactory.decodeResource(getResources(), R.drawable.undo);
 	    bits[34] = BitmapFactory.decodeResource(getResources(), R.drawable.undo2);
-	    mAesthetic2View.setBits(bits);
+	    mTutorialView.setBits(bits);
 
         System.gc();
     }
@@ -101,7 +101,7 @@ public class Aesthetic2Activity extends Activity {
         bits = null;
         System.gc();
 
-        mAesthetic2View.getThread().setRunning(false); // pause game when Activity pauses
+        mTutorialView.getThread().setRunning(false); // pause game when Activity pauses
         System.gc();
     }
 
@@ -123,7 +123,6 @@ public class Aesthetic2Activity extends Activity {
     protected void onSaveInstanceState(Bundle outState) {
         // just have the View's thread save its state into our Bundle
         super.onSaveInstanceState(outState);
-        //mAesthetic2Thread.saveState(outState);
         Log.w(this.getClass().getName(), "SIS called");
     }
     
