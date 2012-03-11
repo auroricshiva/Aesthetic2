@@ -8,24 +8,31 @@ public class Levels
     private int[][] levelMap, collectableMap;
     private int[] pattern, curPattern;
     private int level;
-    private final int LEVEL_SIZE = 100;
+    private final int LEVEL_SIZE = 50;
     private final int PATTERN_SIZE = 6;
     private Random rand = new Random();
     
 	public Levels(int level)
 	{
 	    this.level = level;
-	    levelMap = new int[LEVEL_SIZE][3];
+	    levelMap = new int[LEVEL_SIZE+8][3];
 	    collectableMap = new int[LEVEL_SIZE][3];
 	    pattern = new int[PATTERN_SIZE];
 	    curPattern = new int[PATTERN_SIZE];
 	    
-	    for(int a = 0; a < LEVEL_SIZE; a++)
+	    for(int a = 0; a < LEVEL_SIZE+8; a++)
 	    {
 	        for(int b = 0; b < 3; b++)
 	        {
-	            levelMap[a][b] = rand.nextInt(6) + 1;
-	            if(a > 8)
+	            int randInt = 2;
+	            if(a%3==0)
+	                randInt = rand.nextInt(6) + 1;
+	            if(a < LEVEL_SIZE)
+	                levelMap[a][b] = randInt;
+	            else
+	                levelMap[a][b] = 6;
+	            
+	            if(a > 5 && a < LEVEL_SIZE && rand.nextFloat() < 0.2f)
 	                collectableMap[a][b] = rand.nextInt(7);
 	        }
 	    }

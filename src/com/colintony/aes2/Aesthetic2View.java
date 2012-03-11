@@ -258,7 +258,7 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
 	            	}
 	            	else csprite.setEnd();
 
-	            	if(mx < 151*(mapLevel.length-59)*0.6*(curLevel))
+	            	if(mx < 151*(mapLevel.length-9)*0.6*(curLevel))
 	            	{
 	            	    mx+=5;
 	            	    colx+=5;
@@ -342,7 +342,8 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
 	            //win check
 	            won = true;
 	            for(int i = 0; i<6; i++){
-	            	if(curPattern[i]%3 != pattern[i]%3 || curPattern[i] == 0) won = false;
+	            	if(curPattern[i]%3 != pattern[i]%3 || (curPattern[i] == 0 && pattern[i] != 0))
+	            	    won = false;
 	            }
             }
             
@@ -615,11 +616,15 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
 	            {
 	            	if(won) {
 	            		click = 4;
-	            		level = new Levels(curLevel++);
+	            		level = new Levels(++curLevel);
+	                    mapLevel = level.getLevelMap();
+	                    mapCollectables = level.getCollectableMap();
+	                    pattern = level.getPattern();
 	            		won = false;
 	            		pointer = 0;
 	            		curPattern = new int[6];
 	            		life = 3;
+	            		levelEnd = false;
 	            		while(!gemStack.isEmpty()) gemStack.pop();
 	            		while(!gemQueue.isEmpty()) gemQueue.remove();
 	            	}
