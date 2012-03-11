@@ -437,7 +437,21 @@ class TutorialView extends SurfaceView implements SurfaceHolder.Callback {
 					canvas.drawText("Oh, and avoid rocks.", mCanvasWidth/2f/.66f+20, 200f+360, paint);
 					
 					paint.setTextSize(30);
-					canvas.drawText("touch anywhere to end this tutorial", mCanvasWidth/2f/.66f+20, 200f+400, paint);//
+					canvas.drawText("", mCanvasWidth/2f/.66f+20, 200f+400, paint);//
+		    		
+				}
+				if(tutnum == 17){
+					paint.setTextSize(40);
+					canvas.drawText("Press your back button", mCanvasWidth/2f/.66f+20, 200f, paint);
+					canvas.drawText("now to return to the menu.", mCanvasWidth/2f/.66f+20, 200f+60, paint);
+					canvas.drawText("You can do this at any time", mCanvasWidth/2f/.66f+20, 200f+120, paint);
+					canvas.drawText("to quit your current game, like", mCanvasWidth/2f/.66f+20, 200f+180, paint);
+					canvas.drawText("if you failed to get the correct gems.", mCanvasWidth/2f/.66f+20, 200f+240, paint);
+					canvas.drawText("The menu will keep track of your", mCanvasWidth/2f/.66f+20, 200f+300, paint);
+					canvas.drawText("furthest level, good luck!", mCanvasWidth/2f/.66f+20, 200f+360, paint);
+					
+					paint.setTextSize(30);
+					canvas.drawText("", mCanvasWidth/2f/.66f+20, 200f+400, paint);//
 		    		
 				}
 			}
@@ -880,7 +894,7 @@ class TutorialView extends SurfaceView implements SurfaceHolder.Callback {
             
             //tutorial sections
             if(tut){
-      	    	if(tutnum != 4) tutnum++;
+      	    	if(tutnum != 4 && tutnum !=17) tutnum++;
       	    	if(tutnum == 4){
       	    		if(pickx > mCanvasWidth - 70 )
 		            {
