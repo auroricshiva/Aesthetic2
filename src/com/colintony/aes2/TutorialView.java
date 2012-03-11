@@ -47,7 +47,7 @@ class TutorialView extends SurfaceView implements SurfaceHolder.Callback {
 	private float my;
     private float jHeight = 0, jScale = 0.75f;
     private float endx;
-    private float colx;
+    private float colx = 80;
 
 	private float oscale = 0;
 	
@@ -140,6 +140,8 @@ class TutorialView extends SurfaceView implements SurfaceHolder.Callback {
             canvas.scale(jScale, jScale, shadow.getWidth()/2, shadow.getHeight()*3/4);
             canvas.drawBitmap(shadow, (float)((150+(int)endx)/jScale)+beginning, (float)(100+rowy*3/4)/jScale, null);
             canvas.restore();
+            
+            
 	        canvas.scale(0.75f,0.75f,0,0);
             csprite.draw(canvas, 200+(int)endx+beginning, 180+rowy-Math.round(jHeight));
 			canvas.restore();
