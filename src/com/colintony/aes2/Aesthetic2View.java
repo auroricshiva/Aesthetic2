@@ -36,6 +36,8 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
     private float jHeight = 0, jScale = 0.75f;
     private float endx;
     private float colx;
+    private int rock = 15;
+    private int hit = 100;
 
 	private float oscale = 0;
 	
@@ -56,6 +58,7 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
     private Bitmap BackgroundImage;
     private Bitmap character;
     private Bitmap shadow;
+    private Bitmap rocks;
     private Bitmap[] land = new Bitmap[10];
     private Bitmap[] arrows = new Bitmap[3];
     private Bitmap[] collectables = new Bitmap[9];
@@ -125,6 +128,11 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
             canvas.restore();
             
             canvas.save();
+            canvas.scale(0.4f,0.4f,0,mCanvasHeight);
+            drawRocks(rock, canvas);
+            canvas.restore();
+            
+            canvas.save();
             canvas.scale(0.6f,0.6f,0,mCanvasHeight);
             if(!levelEnd) drawCollectables(mapCollectables, canvas, 0);
             if(!levelEnd && row > 0) drawCollectables(mapCollectables, canvas, 1);
@@ -191,6 +199,11 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
 			canvas.restore();
         }
           
+        private void drawRocks(int rock, Canvas canvas){
+			for(int i = 0; i < 3; i++){
+			    canvas.drawBitmap(rocks, 1.5f*(-mx/0.6f+151*rock), 1.5f*(my+60*(2*i+1)-270), null);
+			}
+		}
         
         private void drawLand(int[][] map, Canvas canvas){
         	for(int j = 0; j < map.length; j++){
@@ -283,12 +296,22 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
                         rowy = row*96;
                 }
                 
+                //rocks
+                if((-mx/0.6f+151*rock) < -200) rock +=10+20*Math.random();
+                
                 //collision
                 if(colx > 90.6 && col < mapLevel.length-9)
                 {
                     colx -= 90.6;
                     col++;
                 }
+                
+                //rock collision
+                if(jump != 1 && col == rock && colx < 50 && life > 0 && hit > 99){
+                	life--;
+                	hit = 0;
+                }
+                if(hit < 100)hit++;
                 
                 //gem is on ground
                 if(mapCollectables[col][row] != 0)
@@ -540,6 +563,7 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
         bars[9] = bits[32];
         bars[10] = bits[33];
         bars[11] = bits[34];
+        rocks = bits[35];
         set = true;
     }
     
@@ -602,7 +626,7 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
 		            	click = 2;
 	            	}
 	            }
-	            else if(pickx > mCanvasWidth/4*3 && pickx < mCanvasWidth/8*7 && picky > mCanvasHeight/3*2)
+	            else if(pickx > mCanvasWidth/4*3 && pickx < mCanvasWidth/8*7 && picky > mCanvasHeight/5*3)
 	            {
 	            	if(pointer>0){
 		            	if(curPattern[pointer-1] < 4) gemQueue.addFirst(curPattern[pointer-1] );
@@ -612,7 +636,7 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
 	            		click = 3;	            		
 	            	}
 	            }
-	            else if(pickx > mCanvasWidth/2 && pickx < mCanvasWidth/5*3 && picky > mCanvasHeight/2)
+	            else if(pickx > mCanvasWidth/2 && pickx < mCanvasWidth/5*3 && picky > mCanvasHeight/5*3)
 	            {
 	            	if(won) {
 	            		click = 4;
@@ -623,7 +647,6 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
 	            		won = false;
 	            		pointer = 0;
 	            		curPattern = new int[6];
-	            		life = 3;
 	            		levelEnd = false;
 	            		while(!gemStack.isEmpty()) gemStack.pop();
 	            		while(!gemQueue.isEmpty()) gemQueue.remove();

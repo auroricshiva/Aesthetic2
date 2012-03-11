@@ -80,6 +80,8 @@ public class Aesthetic2Activity extends Activity {
             bits[33] = BitmapFactory.decodeResource(getResources(), R.drawable.undo);
             bits[34] = BitmapFactory.decodeResource(getResources(), R.drawable.undo2);
             
+            bits[35] = BitmapFactory.decodeResource(getResources(), R.drawable.rock);
+            
     	    mAesthetic2View.setBits(bits);
         }
 
