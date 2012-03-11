@@ -101,13 +101,6 @@ public class Aesthetic2Activity extends Activity {
     @Override
     protected void onStop() {
         super.onStop();
-        for(int i = 0; i < bits.length; i++)
-            if(bits[i]!=null)
-                bits[i].recycle();
-        bits = null;
-//        System.gc();
-//
-//        mAesthetic2View.getThread().setRunning(false); // pause game when Activity pauses
         System.gc();
     }
 
