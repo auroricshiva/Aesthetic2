@@ -32,7 +32,7 @@ public class Levels
 	            else
 	                levelMap[a][b] = 6;
 	            
-	            if(a > 5 && a < LEVEL_SIZE && rand.nextFloat() < 0.2f)
+	            if(a > 5 && a < LEVEL_SIZE && rand.nextFloat() < (0.9*level)/(level+5))
 	                collectableMap[a][b] = rand.nextInt(7);
 	        }
 	    }
@@ -121,6 +121,11 @@ public class Levels
 	public int getLevel()
 	{
 	    return level;
+	}
+	
+	public int getLevelWidth()
+	{
+	    return LEVEL_SIZE + 8;
 	}
 	
 }
