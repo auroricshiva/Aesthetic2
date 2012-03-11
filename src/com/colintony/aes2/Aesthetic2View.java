@@ -7,7 +7,9 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Typeface;
 import android.os.Handler;
 import android.util.AttributeSet;
 import android.view.KeyEvent;
@@ -25,7 +27,7 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
 	private int max;
 	
 	Canvas c;
-	Paint p = new Paint();
+	Paint textFill = new Paint(), textStroke = new Paint(), goPaint = new Paint();
 	Boolean set = false;
 	
 	private boolean levelEnd;
@@ -102,6 +104,18 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
             levelWidth = level.getLevelWidth();
             state = 0;
             pointer = 0;
+
+            textFill.setColor(Color.WHITE);
+            textFill.setStyle(Paint.Style.FILL);
+            textFill.setTextSize(32);
+            textFill.setTypeface(Typeface.DEFAULT_BOLD);
+            
+            textStroke.setColor(Color.BLACK);
+            textStroke.setStyle(Paint.Style.STROKE);
+            textStroke.setAntiAlias(true);
+            textStroke.setStrokeWidth(1);
+            textStroke.setTextSize(32);
+            textStroke.setTypeface(Typeface.DEFAULT_BOLD);
             
         }
         
@@ -122,6 +136,9 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
         	canvas.scale(0.5f,0.5f,0,0);
 	        canvas.drawBitmap(BackgroundImage, 0, 0, null);
 	        canvas.restore();
+	        
+            canvas.drawText("Level: " + curLevel, 650, 50, textFill);
+            canvas.drawText("Level: " + curLevel, 650, 50, textStroke);
 	        
 	        canvas.save();
 	        canvas.scale(0.6f,0.6f,0,mCanvasHeight);
@@ -285,8 +302,8 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
             canvas.save();
             if(pAlpha < 255)
                 pAlpha += 2;
-            p.setAlpha(pAlpha);
-            canvas.drawBitmap(gameover, -50, 20, p);
+            goPaint.setAlpha(pAlpha);
+            canvas.drawBitmap(gameover, -50, 20, goPaint);
             canvas.restore();
         }
 
