@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="hello">Hello World, Aesthetic2Activity!</string>
-    <string name="app_name">Aesthetic2</string>
-    <string name="gametitle">Title of game</string>
+    <string name="hello">Hello World!</string>
+    <string name="app_name">Aestuu\'s Gem Sorting</string>
+    <string name="gametitle">Aestuu\'s Gem Sorting</string>
     <string name="titlescreen">Background of title screen</string>
     <string name="tutorialflavourtext">Aestuu, one of Cthulhu\'s many minions, has been sent to the peaceful Planet Cute to gather assorted gems to power his Master\'s stacks and queues!  Guide Aestuu in completing his mission to appease the great old one.</string>
 
