@@ -30,8 +30,10 @@ class TutorialView extends SurfaceView implements SurfaceHolder.Callback {
 	private int tutnum = 0;
 	private int beginning = -200;
 	private int beginning2 = -500;
+	private int beginning3 = 0;
 	private boolean tutset[] = new boolean[10];
 	private int tutcount = 0;
+	private int tutcount2 = 0;
 	
     private int curLevel = 1;
 	private int state = 0;
@@ -170,7 +172,7 @@ class TutorialView extends SurfaceView implements SurfaceHolder.Callback {
 			canvas.scale(0.66f,0.66f,0,0);
 			if(click == 1)canvas.drawBitmap(bars[5],(int)(-1*endx+0)-5,5, null);
 			if(click == 2)canvas.drawBitmap(bars[6],(int)(-1*endx+0)+80,5, null);
-			canvas.drawBitmap(bars[0],(int)(-1*endx+0)+beginning,0, null);
+			canvas.drawBitmap(bars[0],(int)(-1*endx+0)+beginning+beginning3,0, null);
 			canvas.drawBitmap(bars[1],(int)(-1.4*endx+0)+beginning2,0, null);
 			canvas.drawBitmap(bars[2],-1*endx,-1*endx+0, null);
 			canvas.drawBitmap(bars[2],-1*endx,2*endx+0-40+800, null);
@@ -355,7 +357,85 @@ class TutorialView extends SurfaceView implements SurfaceHolder.Callback {
 					canvas.drawText("the green check mark to move on.", mCanvasWidth/2f/.66f+20, 200f+300, paint);
 					
 					paint.setTextSize(30);
-					canvas.drawText("touch anywhere to continue", mCanvasWidth/2f/.66f+20, 200f+400, paint);
+					canvas.drawText("touch anywhere to continue", mCanvasWidth/2f/.66f+20, 200f+400, paint);//
+		    		
+				}
+				if(tutnum == 11){
+					paint.setTextSize(40);
+					canvas.drawText("Congratulations, you made it past", mCanvasWidth/2f/.66f+20, 200f, paint);
+					canvas.drawText("the first point, now you have a new", mCanvasWidth/2f/.66f+20, 200f+60, paint);
+					canvas.drawText("pattern.  As well, we will now", mCanvasWidth/2f/.66f+20, 200f+120, paint);
+					canvas.drawText("teach you to use a stack instead.", mCanvasWidth/2f/.66f+20, 200f+180, paint);
+					canvas.drawText("The yellow bar to your left in our", mCanvasWidth/2f/.66f+20, 200f+240, paint);
+					canvas.drawText("representation of a stack.", mCanvasWidth/2f/.66f+20, 200f+300, paint);
+					
+					paint.setTextSize(30);
+					canvas.drawText("touch anywhere to continue", mCanvasWidth/2f/.66f+20, 200f+400, paint);//
+		    		
+				}
+				if(tutnum == 12){
+					paint.setTextSize(40);
+					canvas.drawText("Now stacks are very similar to queues,", mCanvasWidth/2f/.66f+20, 200f, paint);
+					canvas.drawText("but the big difference is that", mCanvasWidth/2f/.66f+20, 200f+60, paint);
+					canvas.drawText("they pop off the last gem added", mCanvasWidth/2f/.66f+20, 200f+120, paint);
+					canvas.drawText("rather than the first.  You must", mCanvasWidth/2f/.66f+20, 200f+180, paint);
+					canvas.drawText("collect the gems you want to", mCanvasWidth/2f/.66f+20, 200f+240, paint);
+					canvas.drawText("use in reverse order.", mCanvasWidth/2f/.66f+20, 200f+300, paint);
+					
+					paint.setTextSize(30);
+					canvas.drawText("touch anywhere to continue", mCanvasWidth/2f/.66f+20, 200f+400, paint);//
+		    		
+				}
+				if(tutnum == 13){
+					paint.setTextSize(40);
+					canvas.drawText("As well, you will notice that", mCanvasWidth/2f/.66f+20, 200f, paint);
+					canvas.drawText("the gems have changes.  The ", mCanvasWidth/2f/.66f+20, 200f+60, paint);
+					canvas.drawText("square gems will always go to", mCanvasWidth/2f/.66f+20, 200f+120, paint);
+					canvas.drawText("your stack while the pointed", mCanvasWidth/2f/.66f+20, 200f+180, paint);
+					canvas.drawText("gems go to your queue.  Now", mCanvasWidth/2f/.66f+20, 200f+240, paint);
+					canvas.drawText("go collect gems for your stack.", mCanvasWidth/2f/.66f+20, 200f+300, paint);
+					
+					paint.setTextSize(30);
+					canvas.drawText("touch anywhere to continue", mCanvasWidth/2f/.66f+20, 200f+400, paint);//
+		    		
+				}
+				if(tutnum == 14){
+					paint.setTextSize(40);
+					canvas.drawText("Great!  Now you know the stack", mCanvasWidth/2f/.66f+20, 200f, paint);
+					canvas.drawText("and the queue.  The real game", mCanvasWidth/2f/.66f+20, 200f+60, paint);
+					canvas.drawText("will have both and you can", mCanvasWidth/2f/.66f+20, 200f+120, paint);
+					canvas.drawText("complete the pattern with gems", mCanvasWidth/2f/.66f+20, 200f+180, paint);
+					canvas.drawText("of the same color from either", mCanvasWidth/2f/.66f+20, 200f+240, paint);
+					canvas.drawText("the stack or queue.", mCanvasWidth/2f/.66f+20, 200f+300, paint);
+					
+					paint.setTextSize(30);
+					canvas.drawText("touch anywhere to continue", mCanvasWidth/2f/.66f+20, 200f+400, paint);//
+		    		
+				}
+				if(tutnum == 15){
+					paint.setTextSize(40);
+					canvas.drawText("Now remember that you can press", mCanvasWidth/2f/.66f+20, 200f, paint);
+					canvas.drawText("either the stack or the queue", mCanvasWidth/2f/.66f+20, 200f+60, paint);
+					canvas.drawText("to order your gems correctly.", mCanvasWidth/2f/.66f+20, 200f+120, paint);
+					canvas.drawText("Don't be afraid to click the", mCanvasWidth/2f/.66f+20, 200f+180, paint);
+					canvas.drawText("back button if you are out of", mCanvasWidth/2f/.66f+20, 200f+240, paint);
+					canvas.drawText("order.", mCanvasWidth/2f/.66f+20, 200f+300, paint);
+					
+					paint.setTextSize(30);
+					canvas.drawText("touch anywhere to continue", mCanvasWidth/2f/.66f+20, 200f+400, paint);//
+		    		
+				}
+				if(tutnum == 16){
+					paint.setTextSize(40);
+					canvas.drawText("You have successfully passed", mCanvasWidth/2f/.66f+20, 200f, paint);
+					canvas.drawText("our tutorial, now go try the", mCanvasWidth/2f/.66f+20, 200f+60, paint);
+					canvas.drawText("real game!  Remember that", mCanvasWidth/2f/.66f+20, 200f+120, paint);
+					canvas.drawText("getting the patterns right may get", mCanvasWidth/2f/.66f+20, 200f+180, paint);
+					canvas.drawText("tricky.  Hope you enjoy the game", mCanvasWidth/2f/.66f+20, 200f+240, paint);
+					canvas.drawText("and feel free to give us feedback.", mCanvasWidth/2f/.66f+20, 200f+300, paint);
+					
+					paint.setTextSize(30);
+					canvas.drawText("touch anywhere to end this tutorial", mCanvasWidth/2f/.66f+20, 200f+400, paint);//
 		    		
 				}
 			}
@@ -441,7 +521,8 @@ class TutorialView extends SurfaceView implements SurfaceHolder.Callback {
 	            	if(tutnum > 5){
 	            		if(beginning < 0) beginning +=5;
 	            	}
-	            	if(tutnum == 10){
+
+	            	if(tutnum == 10 || tutnum == 15){
 	            		if(endx == -200) tut = true;
 	            	}
 	            	
@@ -450,9 +531,11 @@ class TutorialView extends SurfaceView implements SurfaceHolder.Callback {
 	            	    if(!tut) {
 	            	    	mx+=5;
 	            	    	colx+=5;
+	            	    	tutcount2++;
 	            	    }
 	            	    
 	            	}
+
 	            	else if(!levelEnd[curLevel])
 	            	{
 	            	    levelEnd[curLevel] = true;
@@ -483,7 +566,7 @@ class TutorialView extends SurfaceView implements SurfaceHolder.Callback {
                 //gem is on ground
                 if(mapCollectables[col][row] != 0)
                 {
-	                if(tutcount > 5){
+	                if(tutcount > 15){
 	                    int temp = mapCollectables[col][row];
 	                    mapCollectables[col][row] = 0;
 	                    if(temp < 4)//queue
@@ -492,7 +575,7 @@ class TutorialView extends SurfaceView implements SurfaceHolder.Callback {
 	                        if(gemQueue.size() > MAX_SIZE)
 	                            gemQueue.remove();
 	                    }
-	                    else if(gemStack.size() < MAX_SIZE)//stack
+	                    else if(gemStack.size() < MAX_SIZE)//stack//
 	                    {
 	                        gemStack.push(temp);
 	                    }
@@ -532,6 +615,30 @@ class TutorialView extends SurfaceView implements SurfaceHolder.Callback {
 	                    endx -=2;
 	            }
 	            
+	            //tutorial checks
+	            if(tutcount2 == 10 && curLevel == 2) tut = true;
+	            if(tutcount2 == 10 && curLevel == 3) tut = true;
+	            if(tutcount2 == 10 && curLevel == 4) tut = true;
+	            if(curLevel == 2){
+	                lines[0][0] = 7;
+	                lines[0][1] = 9;
+	                lines[0][2] = 9;
+	                lines[0][3] = 8;
+	                lines[0][4] = 0;
+	                lines[0][5] = 0;
+	                
+	                if(beginning2 < 0) beginning2 +=5;
+	                if(beginning3 > -300) beginning3 -=5;
+	            }
+	            if(curLevel == 3){
+	                lines[0][0] = 8;
+	                lines[0][1] = 7;
+	                lines[0][2] = 9;
+	                lines[0][3] = 8;
+	                lines[0][4] = 8;
+	                lines[0][5] = 7;
+	                if(beginning3 < 0) beginning3 +=5;
+	            }
 	            
 	            //win check
 	            won = true;
@@ -799,7 +906,7 @@ class TutorialView extends SurfaceView implements SurfaceHolder.Callback {
 		            }
       	    		else if (tutset[0]) tutnum++;
       	    	}
-      	    	if (tutnum == 10 || tutnum ==11) tut = false;
+      	    	if (tutnum == 10 || tutnum ==11 || tutnum == 14 || tutnum == 15 || tutnum == 16 ) tut = false;
 			}
             
             
@@ -861,6 +968,7 @@ class TutorialView extends SurfaceView implements SurfaceHolder.Callback {
 		            		pointer = 0;
 		            		lines[3] = new int[8];
 		            		life = 3;
+		            		tutcount2 = 0;
 		            		while(!gemStack.isEmpty()) gemStack.pop();
 		            		while(!gemQueue.isEmpty()) gemQueue.remove();
 		            	}
