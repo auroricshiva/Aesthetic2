@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.TextView;
 
 public class MenuActivity extends Activity
 {
@@ -26,6 +27,9 @@ public class MenuActivity extends Activity
         
         saves = getSharedPreferences(PREFS_NAME, 0);
         max = saves.getInt("max", 0);
+        
+        TextView v1 = (TextView) findViewById(R.id.textv1);
+        v1.setText("Max level: " + max);
         
         Button StartGameButton = (Button)findViewById(R.id.StartGame);
         StartGameButton.setOnClickListener(new OnClickListener() {
