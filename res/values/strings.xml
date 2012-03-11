@@ -5,6 +5,6 @@
     <string name="app_name">Aesthetic2</string>
     <string name="gametitle">Title of game</string>
     <string name="titlescreen">Background of title screen</string>
-    <string name="tutorial">Aestuu, one of Cthulhu\'s many minions, has been sent to the peaceful Planet Cute to gather assorted gems to power his Master\'s stacks and queues!  Guide Aestuu in completing his mission to appease the great old one.</string>
+    <string name="tutorialflavourtext">Aestuu, one of Cthulhu\'s many minions, has been sent to the peaceful Planet Cute to gather assorted gems to power his Master\'s stacks and queues!  Guide Aestuu in completing his mission to appease the great old one.</string>
 
 </resources>

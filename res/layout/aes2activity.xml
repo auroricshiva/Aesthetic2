@@ -9,7 +9,7 @@
     android:layout_height="fill_parent">
     
     <com.colintony.aes2.Aesthetic2View
-      android:id="@+id/aes2"
+      android:id="@+id/aes2activity"
       android:layout_width="fill_parent"
       android:layout_height="fill_parent"/>
          

@@ -30,7 +30,7 @@ public class MenuActivity extends Activity
         TutorialButton.setOnClickListener(new OnClickListener() {
             
             public void onClick(View v) {
-                Intent TutorialIntent = new Intent(MenuActivity.this,Aesthetic2Activity.class);
+                Intent TutorialIntent = new Intent(MenuActivity.this,TutorialActivity.class);
                 startActivity(TutorialIntent);
             }
         });
