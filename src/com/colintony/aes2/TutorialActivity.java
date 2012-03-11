@@ -99,7 +99,9 @@ public class TutorialActivity extends Activity {
     @Override
     protected void onStop() {
         super.onStop();
-        //for(int i = 0; i < bits.length; i++) if(bits[i]!=null)bits[i].recycle();
+        for(int i = 0; i < bits.length; i++)
+            if(bits[i]!=null)
+                bits[i].recycle();
         bits = null;
         System.gc();
 
@@ -128,19 +130,4 @@ public class TutorialActivity extends Activity {
         Log.w(this.getClass().getName(), "SIS called");
     }
     
-    @Override
-    public void onBackPressed()
-    {
-        finish();
-        return;
-    }
-    
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
-            moveTaskToBack(true);
-            return true;
-        }
-        return super.onKeyDown(keyCode, event);
-    }
 }

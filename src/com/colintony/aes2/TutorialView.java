@@ -271,7 +271,7 @@ class TutorialView extends SurfaceView implements SurfaceHolder.Callback {
 				if(tutnum == 4){
 					paint.setTextSize(40);
 
-					canvas.drawText("You control control Aestuu", mCanvasWidth/2f/.66f+20, 200f+60, paint);
+					canvas.drawText("You can control Aestuu", mCanvasWidth/2f/.66f+20, 200f+60, paint);
 					canvas.drawText("through the arrows and jump", mCanvasWidth/2f/.66f+20, 200f+120, paint);
 					canvas.drawText("button on the right of your", mCanvasWidth/2f/.66f+20, 200f+180, paint);
 					canvas.drawText("screen.  Try them now!", mCanvasWidth/2f/.66f+20, 200f+240, paint);
@@ -881,15 +881,10 @@ class TutorialView extends SurfaceView implements SurfaceHolder.Callback {
 	
 		}
 
-		return true;
 	  }
-	  
-	  
-	  
-	  
 	  
 	  return true;
 
-}
+	}
 
 }
