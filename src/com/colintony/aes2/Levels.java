@@ -39,7 +39,7 @@ public class Levels
 	    
 	    for(int a = 0; a < PATTERN_SIZE; a++)
 	    {
-	        if(a + 3 - (level - 1) / 2 < PATTERN_SIZE)
+	        if(a + 4 - (level - 1) / 2 < PATTERN_SIZE)
 	            pattern[a] = rand.nextInt(3) + 7;
 	    }
 	    
