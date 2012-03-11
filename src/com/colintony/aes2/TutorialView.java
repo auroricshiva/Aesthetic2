@@ -28,6 +28,10 @@ class TutorialView extends SurfaceView implements SurfaceHolder.Callback {
 	private boolean won = false;
 	private boolean tut = true;
 	private int tutnum = 0;
+	private int beginning = -200;
+	private int beginning2 = -500;
+	private boolean tutset[] = new boolean[10];
+	private int tutcount = 0;
 	
     private int curLevel = 1;
 	private int state = 0;
@@ -51,7 +55,7 @@ class TutorialView extends SurfaceView implements SurfaceHolder.Callback {
     
     int mapLevel[][], mapCollectables[][];
     int lines[][] = new int [4][8];
-    Levels level = new Levels();
+    Levels level = new Levels(true);
     int pointer = 0;
     int row = 0, col = 3;
     int rowy = 0;
@@ -95,21 +99,10 @@ class TutorialView extends SurfaceView implements SurfaceHolder.Callback {
             
             lines[0][0] = 7;
             lines[0][1] = 8;
-            lines[0][2] = 9;
-            lines[0][3] = 9;
-            lines[0][4] = 9;
-            lines[0][5] = 9;
-
-            
-
-            lines[3][0] = 7;
-            lines[3][1] = 8;
-            lines[3][2] = 9;
-            lines[3][3] = 9;
-            lines[3][4] = 9;
-            lines[3][5] = 0;
-
-            pointer = 5;
+            lines[0][2] = 7;
+            lines[0][3] = 0;
+            lines[0][4] = 0;
+            lines[0][5] = 0;
             
         }
         
@@ -144,10 +137,10 @@ class TutorialView extends SurfaceView implements SurfaceHolder.Callback {
 	        canvas.save();
 	        jScale = (float)(0.75*(1-jHeight/180));
             canvas.scale(jScale, jScale, shadow.getWidth()/2, shadow.getHeight()*3/4);
-            canvas.drawBitmap(shadow, (float)((150+(int)endx)/jScale), (float)(100+rowy*3/4)/jScale, null);
+            canvas.drawBitmap(shadow, (float)((150+(int)endx)/jScale)+beginning, (float)(100+rowy*3/4)/jScale, null);
             canvas.restore();
 	        canvas.scale(0.75f,0.75f,0,0);
-            csprite.draw(canvas, 200+(int)endx, 180+rowy-Math.round(jHeight));
+            csprite.draw(canvas, 200+(int)endx+beginning, 180+rowy-Math.round(jHeight));
 			canvas.restore();
 			
 			canvas.save();
@@ -177,8 +170,8 @@ class TutorialView extends SurfaceView implements SurfaceHolder.Callback {
 			canvas.scale(0.66f,0.66f,0,0);
 			if(click == 1)canvas.drawBitmap(bars[5],(int)(-1*endx+0)-5,5, null);
 			if(click == 2)canvas.drawBitmap(bars[6],(int)(-1*endx+0)+80,5, null);
-			canvas.drawBitmap(bars[0],(int)(-1*endx+0),0, null);
-			canvas.drawBitmap(bars[1],(int)(-1.4*endx+0),0, null);
+			canvas.drawBitmap(bars[0],(int)(-1*endx+0)+beginning,0, null);
+			canvas.drawBitmap(bars[1],(int)(-1.4*endx+0)+beginning2,0, null);
 			canvas.drawBitmap(bars[2],-1*endx,-1*endx+0, null);
 			canvas.drawBitmap(bars[2],-1*endx,2*endx+0-40+800, null);
 			canvas.drawBitmap(bars[4-Math.min(1,(life/3))],mCanvasWidth+2*bars[3].getWidth()-220,endx+60, null);
@@ -225,8 +218,8 @@ class TutorialView extends SurfaceView implements SurfaceHolder.Callback {
 					paint.setTextSize(60);
 					canvas.drawText("Created by Colin and Tony", mCanvasWidth/2f/.66f+20, 200f+80, paint);
 					canvas.drawText("for Aesthetic Computing", mCanvasWidth/2f/.66f+20, 200f+150, paint);
-					canvas.drawText("project 2", mCanvasWidth/2f/.66f+20, 200f+220, paint);
-					canvas.drawText("at the Univeristy of Florida", mCanvasWidth/2f/.66f+20, 200f+290, paint);
+					canvas.drawText("project 2 at the", mCanvasWidth/2f/.66f+20, 200f+220, paint);
+					canvas.drawText("Univeristy of Florida", mCanvasWidth/2f/.66f+20, 200f+290, paint);//
 					
 					paint.setTextSize(30);
 					canvas.drawText("touch anywhere to continue", mCanvasWidth/2f/.66f+20, 200f+400, paint);
@@ -237,18 +230,133 @@ class TutorialView extends SurfaceView implements SurfaceHolder.Callback {
 					canvas.drawText("Goal of this project:", mCanvasWidth/2f/.66f+20, 200f, paint);
 					
 					paint.setTextSize(40);
-					canvas.drawText("To create a fun way to teach", mCanvasWidth/2f/.66f+20, 200f+80, paint);
-					canvas.drawText("the idea of stacks and queues", mCanvasWidth/2f/.66f+20, 200f+140, paint);
-					canvas.drawText("to non computer science majors", mCanvasWidth/2f/.66f+20, 200f+200, paint);
-					canvas.drawText("and leave a fun game for even those", mCanvasWidth/2f/.66f+20, 200f+260, paint);
-					canvas.drawText("who don't care of data structures.", mCanvasWidth/2f/.66f+20, 200f+320, paint);
+					canvas.drawText("To create a fun way to teach the", mCanvasWidth/2f/.66f+20, 200f+80, paint);
+					canvas.drawText("idea of stacks and queues to non", mCanvasWidth/2f/.66f+20, 200f+140, paint);
+					canvas.drawText("computer science majors and leave", mCanvasWidth/2f/.66f+20, 200f+200, paint);
+					canvas.drawText("a fun puzzle game for anyone, even", mCanvasWidth/2f/.66f+20, 200f+260, paint);
+					canvas.drawText("if they don't care for data structures.", mCanvasWidth/2f/.66f+20, 200f+320, paint);
 					
 					paint.setTextSize(30);
 					canvas.drawText("touch anywhere to continue", mCanvasWidth/2f/.66f+20, 200f+400, paint);
 		    		
 				}
 				if(tutnum == 2){
-					//Aestuu, one of Cthulhu's many minions, has been sent to the peaceful Planet Cute to gather assorted gems to power his Master's stacks and queues!  Guide Aestuu in completing his mission to appease the great old one.
+					paint.setTextSize(70);
+					canvas.drawText("Now, to the game...", mCanvasWidth/2f/.66f+20, 200f, paint);
+					
+					paint.setTextSize(40);
+					canvas.drawText("Aestuu, one of Cthulhu's many", mCanvasWidth/2f/.66f+20, 200f+80, paint);
+					canvas.drawText("minions has been sent to the", mCanvasWidth/2f/.66f+20, 200f+140, paint);
+					canvas.drawText("peaceful Planet Cute to gather", mCanvasWidth/2f/.66f+20, 200f+200, paint);
+					canvas.drawText("assorted gems to power his", mCanvasWidth/2f/.66f+20, 200f+260, paint);
+					canvas.drawText("Master's stacks and queues!", mCanvasWidth/2f/.66f+20, 200f+320, paint);
+					
+					paint.setTextSize(30);
+					canvas.drawText("touch anywhere to continue", mCanvasWidth/2f/.66f+20, 200f+400, paint);
+		    		
+				}
+				if(tutnum == 3){
+					paint.setTextSize(40);
+					canvas.drawText("Now to you...", mCanvasWidth/2f/.66f+20, 200f, paint);
+					canvas.drawText("You must control Aestuu and", mCanvasWidth/2f/.66f+20, 200f+60, paint);
+					canvas.drawText("and help him traverse through", mCanvasWidth/2f/.66f+20, 200f+120, paint);
+					canvas.drawText("many puzzles.  You will collect", mCanvasWidth/2f/.66f+20, 200f+180, paint);
+					canvas.drawText("gems along the way and complete", mCanvasWidth/2f/.66f+20, 200f+240, paint);
+					canvas.drawText("puzzels at the end of each section.", mCanvasWidth/2f/.66f+20, 200f+300, paint);
+					
+					paint.setTextSize(30);
+					canvas.drawText("touch anywhere to continue", mCanvasWidth/2f/.66f+20, 200f+400, paint);
+		    		
+				}
+				if(tutnum == 4){
+					paint.setTextSize(40);
+
+					canvas.drawText("You control control Aestuu", mCanvasWidth/2f/.66f+20, 200f+60, paint);
+					canvas.drawText("through the arrows and jump", mCanvasWidth/2f/.66f+20, 200f+120, paint);
+					canvas.drawText("button on the right of your", mCanvasWidth/2f/.66f+20, 200f+180, paint);
+					canvas.drawText("screen.  Try them now!", mCanvasWidth/2f/.66f+20, 200f+240, paint);
+					
+					paint.setTextSize(30);
+					if(!tutset[0]) canvas.drawText("try all the buttons on the right to continue", mCanvasWidth/2f/.66f+20, 200f+400, paint);
+					else {
+						paint.setTextSize(40);
+						canvas.drawText("Great you tried them all, press to continue", mCanvasWidth/2f/.66f+20, 200f+400, paint);
+					}
+		    		
+				}
+				if(tutnum == 5){
+					paint.setTextSize(40);
+					canvas.drawText("Now look at the top of our screen", mCanvasWidth/2f/.66f+20, 200f, paint);
+					canvas.drawText("the gray bar and colored", mCanvasWidth/2f/.66f+20, 200f+60, paint);
+					canvas.drawText("circles show us the pattern", mCanvasWidth/2f/.66f+20, 200f+120, paint);
+					canvas.drawText("we need to pass the next checkpoint.", mCanvasWidth/2f/.66f+20, 200f+180, paint);
+					canvas.drawText("(blue, green, blue)", mCanvasWidth/2f/.66f+20, 200f+240, paint);
+					canvas.drawText("Now lets collect some gems.", mCanvasWidth/2f/.66f+20, 200f+300, paint);
+					
+					paint.setTextSize(30);
+					canvas.drawText("touch anywhere to continue", mCanvasWidth/2f/.66f+20, 200f+400, paint);
+		    		
+				}
+				if(tutnum == 6){
+					paint.setTextSize(40);
+					canvas.drawText("Now for gem collection...", mCanvasWidth/2f/.66f+20, 200f, paint);
+					canvas.drawText("All the gems you collect will", mCanvasWidth/2f/.66f+20, 200f+60, paint);
+					canvas.drawText("will go to your queue or", mCanvasWidth/2f/.66f+20, 200f+120, paint);
+					canvas.drawText("to your stack.  The shape", mCanvasWidth/2f/.66f+20, 200f+180, paint);
+					canvas.drawText("of the gem determines which it", mCanvasWidth/2f/.66f+20, 200f+240, paint);
+					canvas.drawText("goes to, but we'll get to that later.", mCanvasWidth/2f/.66f+20, 200f+300, paint);
+					
+					paint.setTextSize(30);
+					canvas.drawText("touch anywhere to continue", mCanvasWidth/2f/.66f+20, 200f+400, paint);
+		    		
+				}
+				if(tutnum == 7){
+					paint.setTextSize(40);
+					canvas.drawText("For now we will teach you the", mCanvasWidth/2f/.66f+20, 200f, paint);
+					canvas.drawText("first structure, a Queue.", mCanvasWidth/2f/.66f+20, 200f+60, paint);
+					canvas.drawText("Our Queue representation", mCanvasWidth/2f/.66f+20, 200f+120, paint);
+					canvas.drawText("is on the left side of your screen.", mCanvasWidth/2f/.66f+20, 200f+180, paint);
+					canvas.drawText("Basic Queues have a first in", mCanvasWidth/2f/.66f+20, 200f+240, paint);
+					canvas.drawText("first out set up.", mCanvasWidth/2f/.66f+20, 200f+300, paint);
+					
+					paint.setTextSize(30);
+					canvas.drawText("touch anywhere to continue", mCanvasWidth/2f/.66f+20, 200f+400, paint);
+		    		
+				}
+				if(tutnum == 8){
+					paint.setTextSize(40);
+					canvas.drawText("This means when we try to", mCanvasWidth/2f/.66f+20, 200f, paint);
+					canvas.drawText("complete the pattern you must", mCanvasWidth/2f/.66f+20, 200f+60, paint);
+					canvas.drawText("use the first gem before you can", mCanvasWidth/2f/.66f+20, 200f+120, paint);
+					canvas.drawText("use the gems behind it.  As well,", mCanvasWidth/2f/.66f+20, 200f+180, paint);
+					canvas.drawText("if you grab more than 6 gems", mCanvasWidth/2f/.66f+20, 200f+240, paint);
+					canvas.drawText("it will knock your first gem off.", mCanvasWidth/2f/.66f+20, 200f+300, paint);
+					
+					paint.setTextSize(30);
+					canvas.drawText("touch anywhere to continue", mCanvasWidth/2f/.66f+20, 200f+400, paint);
+		    		
+				}
+				if(tutnum == 9){
+					paint.setTextSize(40);
+					canvas.drawText("Now lets grab some gems to", mCanvasWidth/2f/.66f+20, 200f+60, paint);
+					canvas.drawText("see how all of this works!", mCanvasWidth/2f/.66f+20, 200f+120, paint);
+					
+					paint.setTextSize(30);
+					canvas.drawText("touch anywhere to start", mCanvasWidth/2f/.66f+20, 200f+400, paint);
+		    		
+				}
+				if(tutnum == 10){
+					paint.setTextSize(40);
+					canvas.drawText("Now we are at the first check", mCanvasWidth/2f/.66f+20, 200f, paint);
+					canvas.drawText("point.  I hope you have the right", mCanvasWidth/2f/.66f+20, 200f+60, paint);
+					canvas.drawText("gems!  You can now press on your", mCanvasWidth/2f/.66f+20, 200f+120, paint);
+					canvas.drawText("queue to move over the next gem.", mCanvasWidth/2f/.66f+20, 200f+180, paint);
+					canvas.drawText("Once you match the pattern, click", mCanvasWidth/2f/.66f+20, 200f+240, paint);
+					canvas.drawText("the green check mark to move on.", mCanvasWidth/2f/.66f+20, 200f+300, paint);
+					
+					paint.setTextSize(30);
+					canvas.drawText("touch anywhere to continue", mCanvasWidth/2f/.66f+20, 200f+400, paint);
+		    		
 				}
 			}
 			canvas.restore();
@@ -300,8 +408,14 @@ class TutorialView extends SurfaceView implements SurfaceHolder.Callback {
                }
            }
         }
-
-
+        
+        
+        
+        
+        
+        
+        
+        
 		/***
          * Updates the game each time it is called
          */
@@ -311,23 +425,33 @@ class TutorialView extends SurfaceView implements SurfaceHolder.Callback {
             double elapsed = (now - mLastTime);
             
             //Update the default gameplay
-            if(state == 0 && !tut)
+            if(state == 0)
             {
 	            if(elapsed > 7)
 	            {
 	            	mLastTime = now;
 	            	cont++;
 	            	if(!levelEnd[curLevel]) {
-	            		csprite.Update2();
+	            		if(tutnum == 4 || !tut) csprite.Update2();
 		                if(endx != 0)
 		                    endx +=2;
 	            	}
 	            	else csprite.setEnd();
 
-	            	if(mx < 151*(mapLevel.length-59)*0.6*(curLevel))
+	            	if(tutnum > 5){
+	            		if(beginning < 0) beginning +=5;
+	            	}
+	            	if(tutnum == 10){
+	            		if(endx == -200) tut = true;
+	            	}
+	            	
+	            	if(mx < 151*(mapLevel.length-89)*0.6*(curLevel))
 	            	{
-	            	    mx+=5;
-	            	    colx+=5;
+	            	    if(!tut) {
+	            	    	mx+=5;
+	            	    	colx+=5;
+	            	    }
+	            	    
 	            	}
 	            	else if(!levelEnd[curLevel])
 	            	{
@@ -359,18 +483,22 @@ class TutorialView extends SurfaceView implements SurfaceHolder.Callback {
                 //gem is on ground
                 if(mapCollectables[col][row] != 0)
                 {
-                    int temp = mapCollectables[col][row];
-                    mapCollectables[col][row] = 0;
-                    if(temp < 4)//queue
-                    {
-                        gemQueue.add(temp);
-                        if(gemQueue.size() > MAX_SIZE)
-                            gemQueue.remove();
-                    }
-                    else if(gemStack.size() < MAX_SIZE)//stack
-                    {
-                        gemStack.push(temp);
-                    }
+	                if(tutcount > 5){
+	                    int temp = mapCollectables[col][row];
+	                    mapCollectables[col][row] = 0;
+	                    if(temp < 4)//queue
+	                    {
+	                        gemQueue.add(temp);
+	                        if(gemQueue.size() > MAX_SIZE)
+	                            gemQueue.remove();
+	                    }
+	                    else if(gemStack.size() < MAX_SIZE)//stack
+	                    {
+	                        gemStack.push(temp);
+	                    }
+	                    tutcount = 0;
+	                }
+	                else tutcount++;
                 }
                 
                 //jump
@@ -408,12 +536,14 @@ class TutorialView extends SurfaceView implements SurfaceHolder.Callback {
 	            //win check
 	            won = true;
 	            for(int i = 0; i<6; i++){
-	            	if(lines[3][i]%3 != lines[0][i]%3 || lines[3][i] == 0) won = false;
+	            	if(lines[3][i]%3 != lines[0][i]%3 || (lines[3][i] == 0 && !(lines[0][i] == 0))) won = false;
 	            }
             }
             
         }
 
+        
+        
         @Override
         public void run() {
             while (mRun && set) {
@@ -612,6 +742,10 @@ class TutorialView extends SurfaceView implements SurfaceHolder.Callback {
         set = true;
     }
     
+    
+    
+    
+    
 	@Override
 	public boolean onTouchEvent(MotionEvent event)
 	{
@@ -634,10 +768,42 @@ class TutorialView extends SurfaceView implements SurfaceHolder.Callback {
 			pickx = (int)event.getX(point);
             picky = (int)event.getY(point);
             
+            
+            //tutorial sections
             if(tut){
-      	    	tutnum++;
-      	    	if (tutnum == 4) tut = false;
+      	    	if(tutnum != 4) tutnum++;
+      	    	if(tutnum == 4){
+      	    		if(pickx > mCanvasWidth - 70 )
+		            {
+		                if(picky < mCanvasHeight / 3)
+		                {
+		                    if(row > 0)
+		                        row--;
+		                    tutset[1] = true;
+		                }
+		                else if(picky < mCanvasHeight * 2 / 3)
+		                {
+		                    if(jump != 1)
+		                    {
+		                        jump = 1;
+		                        jUpDown = 1;
+		                    }
+		                    tutset[2] = true;
+		                }
+		                else if(row < 2){
+		                    row++;
+		                    tutset[3] = true;
+		                }
+		                
+		                if (tutset[1] && tutset[2] && tutset[3]) tutset[0] = true;
+		            }
+      	    		else if (tutset[0]) tutnum++;
+      	    	}
+      	    	if (tutnum == 10 || tutnum ==11) tut = false;
 			}
+            
+            
+            //gameplay
             else{
 	            if(!levelEnd[curLevel]){
 		            if(pickx > mCanvasWidth - 70 )
