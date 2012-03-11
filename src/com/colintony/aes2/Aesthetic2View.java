@@ -231,7 +231,7 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
                 for(int j = 0; j < map[i].length; j++)
                 {
                     if(map[i][j] != 0)
-                        canvas.drawBitmap(land[map[i][j]-1], -mx/0.6f+151*(i+levelWidth*(curLevel)), my+60*(2*i+1)-120, null);
+                        canvas.drawBitmap(land[map[i][j]-1], -mx/0.6f+151*(i+levelWidth*(curLevel-2)), my+60*(2*j+1)-120, null);
                 }
             }
         }
@@ -315,6 +315,7 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
                 
                 //rocks
                 if((-mx/0.6f+151*rock) < -200) rock +=10+20*Math.random();
+                if(rock%58 > 50) rock+=8+5*Math.random();
                 
                 //collision
                 if(colx > 90.6 && col < mapLevel.length-9)
@@ -331,7 +332,7 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
                 if(hit < 100)hit++;
                 
                 //gem is on ground
-                if(col > -1)
+                if(col > -1 && !levelEnd)
                 {
                     if(mapCollectables[col][row] != 0)
                     {
