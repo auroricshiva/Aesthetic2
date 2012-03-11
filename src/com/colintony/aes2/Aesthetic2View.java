@@ -482,6 +482,7 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
         });
         
         saves = context.getSharedPreferences(PREFS_NAME, 0);
+        editor = saves.edit();
         max = saves.getInt("max", 0);
         
         setFocusable(true); // make sure we get key events
