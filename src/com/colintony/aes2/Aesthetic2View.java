@@ -662,7 +662,7 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
              
             if(life > 0){
 	            if(!levelEnd){
-		            if(pickx > mCanvasWidth - 70 )
+		            if(pickx > mCanvasWidth - 90 )
 		            {
 		                if(picky < mCanvasHeight / 3)
 		                {
@@ -690,7 +690,7 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
 			            	click = 1;
 		            	}
 		            }
-		            else if(pickx > mCanvasWidth/4 && pickx < mCanvasWidth/3)
+		            else if(pickx > mCanvasWidth/4 && pickx < mCanvasWidth*4/9)
 		            {
 		            	if( pointer < 6 && !gemStack.isEmpty()){
 			            	curPattern[pointer] = gemStack.pop();
