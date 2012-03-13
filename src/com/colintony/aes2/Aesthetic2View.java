@@ -443,7 +443,7 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
             while (mRun && set) {
                	c = null;
                 try {
-                    c = SurfaceHolder.lockCanvas(null);
+                    c = SurfaceHolder.lockCanvas();
                     synchronized (SurfaceHolder) {
                         //if (mode == STATE_RUNNING) 
                     	update();
