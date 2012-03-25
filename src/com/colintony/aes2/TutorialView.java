@@ -54,7 +54,9 @@ class TutorialView extends SurfaceView implements SurfaceHolder.Callback {
 	/** Height and Width */
 	private int mCanvasHeight = 1000;
 	private int mCanvasWidth = 1000;
-    
+	private int mCanvasHeight2 = 1000;
+	private int mCanvasWidth2 = 1000;
+	
     int mapLevel[][], mapCollectables[][];
     int lines[][] = new int [4][8];
     Levels level = new Levels(true);
@@ -161,9 +163,9 @@ class TutorialView extends SurfaceView implements SurfaceHolder.Callback {
 			
 			canvas.save();
 			canvas.scale(0.33f,0.33f,0,0);
-			if(!won) canvas.drawBitmap(bars[8],-2*endx+700,4*endx+1700, null);
-			else canvas.drawBitmap(bars[7],-2*endx+700,4*endx+1700, null);
-			canvas.drawBitmap(bars[10],-2*endx+1300,4*endx+1700, null);
+			if(!won) canvas.drawBitmap(bars[8],-2*endx+700,5*endx+1900, null);
+			else canvas.drawBitmap(bars[7],-2*endx+700,5*endx+1900, null);
+			canvas.drawBitmap(bars[10],-2*endx+1300,5*endx+1900, null);
 			if(click == 3)canvas.drawBitmap(bars[11],-2*endx+1300,3*endx+1500, null);
 			if(click == 4)canvas.drawBitmap(bars[9],-2*endx+700,3*endx+1500, null);
 			canvas.restore();
@@ -813,6 +815,8 @@ class TutorialView extends SurfaceView implements SurfaceHolder.Callback {
         super.onSizeChanged(xNew, yNew, xOld, yOld);
         mCanvasWidth = 800;
         mCanvasHeight = 480;
+        mCanvasWidth2 = xNew;
+        mCanvasHeight2 = yNew;
         /*
           the onSizeChanged() method will be called automatically before the View gets 
            layed out, or drawn the first time. Also, whenever the orientation changes, 
@@ -898,15 +902,15 @@ class TutorialView extends SurfaceView implements SurfaceHolder.Callback {
             if(tut){
       	    	if(tutnum != 4 && tutnum !=17) tutnum++;
       	    	if(tutnum == 4){
-      	    		if(pickx > mCanvasWidth - 70 )
+      	    		if(pickx > mCanvasWidth2 - 70 )
 		            {
-		                if(picky < mCanvasHeight / 3)
+		                if(picky < mCanvasHeight2 / 3)
 		                {
 		                    if(row > 0)
 		                        row--;
 		                    tutset[1] = true;
 		                }
-		                else if(picky < mCanvasHeight * 2 / 3)
+		                else if(picky < mCanvasHeight2 * 2 / 3)
 		                {
 		                    if(jump != 1)
 		                    {
@@ -931,14 +935,14 @@ class TutorialView extends SurfaceView implements SurfaceHolder.Callback {
             //gameplay
             else{
 	            if(!levelEnd[curLevel]){
-		            if(pickx > mCanvasWidth - 70 )
+		            if(pickx > mCanvasWidth2 - 70 )
 		            {
-		                if(picky < mCanvasHeight / 3)
+		                if(picky < mCanvasHeight2 / 3)
 		                {
 		                    if(row > 0)
 		                        row--;
 		                }
-		                else if(picky < mCanvasHeight * 2 / 3)
+		                else if(picky < mCanvasHeight2 * 2 / 3)
 		                {
 		                    if(jump != 1)
 		                    {
@@ -951,7 +955,7 @@ class TutorialView extends SurfaceView implements SurfaceHolder.Callback {
 		            }
 	            }
 	            else if (endx == -200){
-		            if(pickx > mCanvasWidth/8 && pickx < mCanvasWidth/4)
+		            if(pickx > mCanvasWidth2/8 && pickx < mCanvasWidth2/4)
 		            {
 		            	if( pointer < 6 && !gemQueue.isEmpty()){
 		            		lines[3][pointer] = gemQueue.removeFirst();		      
@@ -959,7 +963,7 @@ class TutorialView extends SurfaceView implements SurfaceHolder.Callback {
 			            	click = 1;
 		            	}
 		            }
-		            else if(pickx > mCanvasWidth/4 && pickx < mCanvasWidth/3)
+		            else if(pickx > mCanvasWidth2/4 && pickx < mCanvasWidth2/3)
 		            {
 		            	if( pointer < 6 && !gemStack.isEmpty()){
 			            	lines[3][pointer] = gemStack.pop();
@@ -967,7 +971,7 @@ class TutorialView extends SurfaceView implements SurfaceHolder.Callback {
 			            	click = 2;
 		            	}
 		            }
-		            else if(pickx > mCanvasWidth/4*3 && pickx < mCanvasWidth/8*7 && picky > mCanvasHeight/5*3)
+		            else if(pickx > mCanvasWidth2/4*3 && pickx < mCanvasWidth2/8*7 && picky > mCanvasHeight2/5*3)
 		            {
 		            	if(pointer>0){
 			            	if(lines[3][pointer-1] < 4) gemQueue.addFirst(lines[3][pointer-1] );
@@ -977,7 +981,7 @@ class TutorialView extends SurfaceView implements SurfaceHolder.Callback {
 		            		click = 3;	            		
 		            	}
 		            }
-		            else if(pickx > mCanvasWidth/2 && pickx < mCanvasWidth/5*3 && picky > mCanvasHeight/5*3)
+		            else if(pickx > mCanvasWidth2/2 && pickx < mCanvasWidth2/5*3 && picky > mCanvasHeight2/5*3)
 		            {
 		            	if(won) {
 		            		click = 4;
