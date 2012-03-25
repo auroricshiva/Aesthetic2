@@ -41,6 +41,8 @@ public class Aesthetic2Activity extends Activity {
         // get handles to the Aesthetic2View from XML, and its Aesthetic2Thread
         mAesthetic2View = (Aesthetic2View) findViewById(R.id.aes2activity);
         
+        System.gc();
+        
         if(bits == null)
         {
             bits = new Bitmap[40];
@@ -105,13 +107,6 @@ public class Aesthetic2Activity extends Activity {
         System.gc();
     }
 
-    @Override
-	public void onConfigurationChanged(Configuration newConfig)  {
-        //super.onConfigurationChanged(newConfig);
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-        onPause();
-        onResume();
-    }
     
     /**
      * Notification that something is about to happen, to give the Activity a

@@ -12,6 +12,7 @@ import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.os.Handler;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
@@ -131,6 +132,7 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
         {
         	canvas.save();
         	canvas.scale(oscale,oscale,0,0);
+        	Log.d("oscale:", ""+oscale);
         	
         	canvas.save();
         	canvas.scale(0.5f,0.5f,0,0);
@@ -170,6 +172,7 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
             if(!levelEnd && row > 1) drawCollectables(mapCollectables, canvas, 2);
             canvas.restore();
             
+            canvas.save();
 	        canvas.scale(0.75f,0.75f,0,0);
             csprite.draw(canvas, 200+(int)endx, 180+rowy-Math.round(jHeight));
 			canvas.restore();
@@ -190,9 +193,9 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
 			
 			canvas.save();
 			canvas.scale(0.33f,0.33f,0,0);
-			if(!won) canvas.drawBitmap(bars[8],-2*endx+700,3*endx+1500, null);
-			else canvas.drawBitmap(bars[7],-2*endx+700,3*endx+1500, null);
-			canvas.drawBitmap(bars[10],-2*endx+1300,3*endx+1500, null);
+			if(!won) canvas.drawBitmap(bars[8],-2*endx+700,4*endx+1700, null);
+			else canvas.drawBitmap(bars[7],-2*endx+700,4*endx+1700, null);
+			canvas.drawBitmap(bars[10],-2*endx+1300,4*endx+1700, null);
 			if(click == 3)canvas.drawBitmap(bars[11],-2*endx+1300,3*endx+1500, null);
 			if(click == 4)canvas.drawBitmap(bars[9],-2*endx+700,3*endx+1500, null);
 			canvas.restore();
@@ -205,7 +208,7 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
 			canvas.drawBitmap(bars[0],(int)(-1*endx+0),0, null);
 			canvas.drawBitmap(bars[1],(int)(-1.4*endx+0),0, null);
 			canvas.drawBitmap(bars[2],-1*endx,-1*endx+0, null);
-			canvas.drawBitmap(bars[2],-1*endx,2*endx+0-40+800, null);
+			canvas.drawBitmap(bars[2],-1*endx,3*endx+0-40+1000, null);
 			canvas.drawBitmap(bars[4-Math.min(1,(life/3))],mCanvasWidth+2*bars[3].getWidth()-220,endx+60, null);
 			canvas.drawBitmap(bars[4-Math.min(1,(life/2))],mCanvasWidth-220,endx+60, null);
 			canvas.drawBitmap(bars[4-Math.min(1,(life/1))],mCanvasWidth-2*bars[3].getWidth()-220,endx+60, null);
@@ -577,6 +580,7 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
     public void surfaceChanged(SurfaceHolder holder, int format, int width,
             int height) {
     	onSizeChanged(width, height, mCanvasWidth, mCanvasHeight);
+    	Log.d("width:", ""+width);
 	}	
     
 
@@ -586,15 +590,17 @@ class Aesthetic2View extends SurfaceView implements SurfaceHolder.Callback {
     @Override
     protected void onSizeChanged(int xNew, int yNew, int xOld, int yOld){
         super.onSizeChanged(xNew, yNew, xOld, yOld);
-        mCanvasWidth = xNew;
-        mCanvasHeight = yNew;
+        mCanvasWidth = 800;
+        mCanvasHeight = 480;
         /*
           the onSizeChanged() method will be called automatically before the View gets 
            layed out, or drawn the first time. Also, whenever the orientation changes, 
            this view's onSizeChanged() method is automatically called again and, hence, 
            this view's new dimensions are obtained. 
            */
-        oscale = xNew/800;
+        float n1 = (float)xNew/800;
+        float n2 = (float)yNew/480;
+        oscale = Math.min(n1,  n2);
     }
    
     protected void setBits(Bitmap bits[])
