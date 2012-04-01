@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.colintony.aes2" android:versionCode="6" android:versionName="version 1.03">
+    package="com.colintony.aes2" android:versionCode="9" android:versionName="version 1.04">
     <uses-sdk android:minSdkVersion="7"/>
     <application android:icon="@drawable/ic_launcher"
         android:label="@string/app_name">
@@ -17,5 +17,13 @@
         <activity android:name="TutorialActivity" android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen"
             android:screenOrientation="landscape">
         </activity>
+        
+                <supports-screens android:resizeable="false"
+                      android:smallScreens="false"
+                      android:normalScreens="true"
+                      android:largeScreens="false"
+                      android:anyDensity="false"/>
+
+            
     </application>
 </manifest>
